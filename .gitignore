@@ -1,0 +1,4 @@
+minishell
+*.o
+*.swp
+.DS_Store
