@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 12:00:08 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/02/25 19:01:14 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/02/25 21:25:42 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int		main(void)
 	printf("%s\n", termtype);
 
 	success = tgetent(buf, termtype);
+	printf("termlines %d\n", tgetnum("li"));
+	printf("termcolumns %d\n", tgetnum("co"));
 
 	char	*cm_gs;
 	char	*nd_gs, *le_gs;
@@ -100,7 +102,7 @@ int		main(void)
 		}
 		else if (!ft_strcmp(c, "\x01"))
 			tputs(tgetstr("cr", NULL), 1, ft_putcchar);
-		else if (!ft_strcmp(c, "\x7f") && p)
+		else if (!ft_strcmp(c, "\x7f") && p && tp)
 		{
 			tputs(tgetstr("le", NULL), 1, ft_putcchar);
 			tputs(tgetstr("dc", NULL), 1, ft_putcchar);

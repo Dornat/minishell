@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 17:40:04 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/02/21 13:57:05 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/02/25 21:03:11 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 4. record command in history list
 5. check if it is builtin command
 5.1. if true
-5.1.1. exec command as built in
+5.1.1. exec command as builtin
 5.2. else
 5.2.1. do fork() and save pid of fork()
 5.2.2. if pid == 0
