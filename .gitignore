@@ -2,3 +2,12 @@ minishell
 *.o
 *.swp
 .DS_Store
+libft.a
+tags
+a.out*
+en_test.c
+editor.c
+kilo.c
+stof.c
+test.c
+winsize.c

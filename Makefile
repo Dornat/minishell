@@ -6,17 +6,17 @@
 #    By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/09 13:27:26 by dpolosuk          #+#    #+#              #
-#    Updated: 2018/02/19 17:40:54 by dpolosuk         ###   ########.fr        #
+#    Updated: 2018/02/25 12:22:36 by dpolosuk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC = minishell.c
+SRC = termcap.c
 
 INCLUDE = -I ./includes -I ./lft3.1/includes
 CFLAGS = -g -Wall -Wextra #-Werror
-LIB = -L ./lft3.1/ -lft
+LIB = -L ./lft3.1/ -lft -ltermcap
 
 OBJ_PATH = ./src/
 OBJ = $(addprefix $(OBJ_PATH), $(SRC:.c=.o))
