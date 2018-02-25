@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 12:00:08 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/02/25 21:25:42 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/02/25 22:06:36 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,10 @@ int		main(void)
 	printf("|%s|\n", le_gs);
 	printf("%llu\n", (unsigned long long int)*le_gs);
 	 * */
-	ft_putstr("[msh] $> ");
+	char	*prompt;
+
+	prompt = ft_strdup("[msh] $> \0");
+	ft_putstr(prompt);
 	enableRawMode();
 	while (1)
 	{
@@ -101,7 +104,17 @@ int		main(void)
 			++tp;
 		}
 		else if (!ft_strcmp(c, "\x01"))
+		{
+			int i = 0;
+			int len = ft_strlen(prompt);
 			tputs(tgetstr("cr", NULL), 1, ft_putcchar);
+			while (i < len)
+			{
+				tputs(tgetstr("nd", NULL), 1, ft_putcchar);
+				i++;
+			}
+			tp = 0;
+		}
 		else if (!ft_strcmp(c, "\x7f") && p && tp)
 		{
 			tputs(tgetstr("le", NULL), 1, ft_putcchar);
