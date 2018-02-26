@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 12:00:08 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/02/25 22:06:36 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/02/26 18:35:14 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <unistd.h>
 #include <libft.h>
 
-void enableRawMode()
+void	enable_raw_mode(void)
 {
 	struct termios		raw;
 
@@ -28,9 +28,6 @@ void enableRawMode()
 	raw.c_lflag &= ~(ECHO);
 	raw.c_cc[VTIME] = 1;
 	raw.c_cc[VMIN] = 0;
-	//raw.c_cc[VERASE] = 0177;
-	//raw.c_cc[VINTR] = 3;
-	//tcsetattr(STDIN_FILENO, TCSANOW, &raw);
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
 }
 
@@ -77,10 +74,11 @@ int		main(void)
 	printf("%llu\n", (unsigned long long int)*le_gs);
 	 * */
 	char	*prompt;
+	int		i = 0;
 
 	prompt = ft_strdup("[msh] $> \0");
 	ft_putstr(prompt);
-	enableRawMode();
+	enable_raw_mode();
 	while (1)
 	{
 		ft_bzero(c, 5);
@@ -105,7 +103,7 @@ int		main(void)
 		}
 		else if (!ft_strcmp(c, "\x01"))
 		{
-			int i = 0;
+			i = 0;
 			int len = ft_strlen(prompt);
 			tputs(tgetstr("cr", NULL), 1, ft_putcchar);
 			while (i < len)
@@ -115,6 +113,16 @@ int		main(void)
 			}
 			tp = 0;
 		}
+		else if (!ft_strcmp(c, "\x05"))
+		{
+			i = tp;
+			while (i < p)
+			{
+				tputs(tgetstr("nd", NULL), 1, ft_putcchar);
+				i++;
+			}
+			tp = i;
+		}
 		else if (!ft_strcmp(c, "\x7f") && p && tp)
 		{
 			tputs(tgetstr("le", NULL), 1, ft_putcchar);
@@ -123,7 +131,6 @@ int		main(void)
 			--tp;
 		}
 	}
-	/*
 	scanf("%s", s);
 	if (!ft_isnotprint(s[0]))
 	{
@@ -131,6 +138,5 @@ int		main(void)
 		ft_putendl(s);
 		//ft_printf("%S", c);
 	}
-	 * */
 	return(0);
 }
