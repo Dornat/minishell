@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/19 17:40:04 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/02/25 21:03:11 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/02/27 19:51:52 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	signal_handler(int sig)
 	if (!g_pid)
 		exit(sig);
 	else
-		write(1, "\n", 1);;
+		write(1, "\n", 1);
 }
 
 int		main(void)

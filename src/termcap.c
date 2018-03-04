@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 12:00:08 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/02/26 18:35:14 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/04 12:26:01 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
 #include <unistd.h>
 #include <libft.h>
+#include <msh.h>
 
 void	enable_raw_mode(void)
 {
@@ -25,15 +27,18 @@ void	enable_raw_mode(void)
 
 	tcgetattr(0, &raw);
 	raw.c_lflag &= ~(ICANON);
+	//raw.c_lflag &= ~(ISIG); for disabling C-c (maybe other SIGNALS)
 	raw.c_lflag &= ~(ECHO);
-	raw.c_cc[VTIME] = 1;
-	raw.c_cc[VMIN] = 0;
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
+	raw.c_oflag &= ~(OPOST);
+	raw.c_cc[VTIME] = 0;
+	raw.c_cc[VMIN] = 1;
+	//tcsetattr(0, TCSAFLUSH, &raw);
+	tcsetattr(0, TCSANOW, &raw);
 }
 
 int		ft_putcchar(int c)
 {
-	write(0, &c, 1);
+	write(1, &c, 1);
 	return (1);
 }
 
@@ -47,12 +52,10 @@ int		ft_isnotprint(int c)
 
 int		main(void)
 {
-	int		success;
 	char	buf[2048];
-	char	*termtype = getenv("TERM");
+	char	*termtype = getenv("tty");
 	printf("%s\n", termtype);
-
-	success = tgetent(buf, termtype);
+	tgetent(buf, termtype);
 	printf("termlines %d\n", tgetnum("li"));
 	printf("termcolumns %d\n", tgetnum("co"));
 
@@ -66,13 +69,6 @@ int		main(void)
 
 	p = 0;
 	tp = 0;
-	//cm_gs = tgetstr("cm", &area);
-	//printf("|%s|\n", cm_gs);
-	/*
-	le_gs = tgetstr("dc", NULL);
-	printf("|%s|\n", le_gs);
-	printf("%llu\n", (unsigned long long int)*le_gs);
-	 * */
 	char	*prompt;
 	int		i = 0;
 
@@ -85,48 +81,51 @@ int		main(void)
 		read(0, c, 5);
 		if (!ft_isnotprint(c[0]))
 		{
-			tputs(tgetstr("im", NULL), 1, ft_putcchar);
+			tputs(tgetstr(ENT_INS_MODE, NULL), 0, ft_putcchar);
 			ft_putstr_fd(c, 0);
-			tputs(tgetstr("ei", NULL), 1, ft_putcchar);
+			tputs(tgetstr(LEAVE_INS_MODE, NULL), 0, ft_putcchar);
 			++p;
 			++tp;
 		}
-		else if ((!ft_strcmp(c, "\e[D") || !ft_strcmp(c, "\x02")) && tp)
+		else if ((!ft_strcmp(c, LEFT_ARROW) || !ft_strcmp(c, CTRL_B)) && tp)
 		{
-			tputs(tgetstr("le", NULL), 1, ft_putcchar);
+			tputs(tgetstr(MV_LEFT, NULL), 0, ft_putcchar);
 			--tp;
 		}
-		else if ((tp < p) && (!ft_strcmp(c, "\e[C") || !ft_strcmp(c, "\x06")))
+		else if ((tp < p) && (!ft_strcmp(c, RIGHT_ARROW) || !ft_strcmp(c, CTRL_F)))
 		{
-			tputs(tgetstr("nd", NULL), 1, ft_putcchar);
+			tputs(tgetstr(MV_RIGHT, NULL), 0, ft_putcchar);
 			++tp;
 		}
-		else if (!ft_strcmp(c, "\x01"))
+		else if (!ft_strcmp(c, CTRL_A))
 		{
 			i = 0;
 			int len = ft_strlen(prompt);
-			tputs(tgetstr("cr", NULL), 1, ft_putcchar);
+			tputs(tgetstr(MV_BEG, NULL), 0, ft_putcchar);
 			while (i < len)
 			{
-				tputs(tgetstr("nd", NULL), 1, ft_putcchar);
+				tputs(tgetstr(MV_RIGHT, NULL), 0, ft_putcchar);
 				i++;
 			}
 			tp = 0;
 		}
-		else if (!ft_strcmp(c, "\x05"))
+		else if (!ft_strcmp(c, CTRL_E))
 		{
 			i = tp;
-			while (i < p)
+			while (i < 50)
 			{
-				tputs(tgetstr("nd", NULL), 1, ft_putcchar);
+				tputs(tgetstr(MV_RIGHT, NULL), 0, ft_putcchar);
 				i++;
 			}
 			tp = i;
+			/* tputs(tgoto(tgetstr("cm", NULL), 15, 73), 1, ft_putcchar); */
+			/* tputs(tgetstr("dl", NULL), 1, ft_putcchar); */
+			/* tputs(tgetstr("im", NULL), 1, ft_putcchar); */
 		}
-		else if (!ft_strcmp(c, "\x7f") && p && tp)
+		else if (!ft_strcmp(c, DEL_KEY) && p && tp)
 		{
-			tputs(tgetstr("le", NULL), 1, ft_putcchar);
-			tputs(tgetstr("dc", NULL), 1, ft_putcchar);
+			tputs(tgetstr(MV_LEFT, NULL), 0, ft_putcchar);
+			tputs(tgetstr(DEL_CHR, NULL), 0, ft_putcchar);
 			--p;
 			--tp;
 		}

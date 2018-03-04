@@ -10,4 +10,7 @@ editor.c
 kilo.c
 stof.c
 test.c
+keykodes.c
 winsize.c
+*~
+G*
