@@ -6,13 +6,14 @@
 #    By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/09 13:27:26 by dpolosuk          #+#    #+#              #
-#    Updated: 2018/03/10 16:38:36 by dpolosuk         ###   ########.fr        #
+#    Updated: 2018/03/10 16:59:53 by dpolosuk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC = insert_chr_in_cmdl.c \
+SRC = del_chr_from_cmdl.c \
+		insert_chr_in_cmdl.c \
 		key_process.c \
 		main.c \
 		misc.c \
