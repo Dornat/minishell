@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 16:08:10 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/08 16:00:55 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/10 16:37:07 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,14 @@ typedef struct		s_cli
 }					t_cli;
 
 /*
+** Defines for t_cli struct
+*/
+
+# define CRS cli->crs
+# define PRT cli->prt
+# define CMD cli->cmd
+
+/*
 ** Main functions
 */
 
@@ -107,6 +115,7 @@ void				init_cpos(t_cli *cli);
 
 void				key_process(char *c, t_cli *cli);
 void				insert_chr_in_cmdl(char *c, t_cli *cli);
+void				refresh_cli(t_cli *cli);
 
 /*
 ** Misc functions
