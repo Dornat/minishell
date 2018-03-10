@@ -6,13 +6,16 @@
 #    By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/09 13:27:26 by dpolosuk          #+#    #+#              #
-#    Updated: 2018/03/04 12:28:28 by dpolosuk         ###   ########.fr        #
+#    Updated: 2018/03/07 11:09:19 by dpolosuk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC = msh.c
+SRC = insert_chr_in_cmdl.c \
+		key_process.c \
+		main.c \
+		misc.c \
 
 INCLUDE = -I ./includes -I ./lft3.1/includes
 CFLAGS = -g -Wall -Wextra #-Werror
