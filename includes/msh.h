@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 16:08:10 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/15 12:30:03 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/15 12:52:20 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,10 @@ void				init_cpos(t_cli *cli);
 ** Key process functions
 */
 
-void				key_process(char *c, t_cli *cli);
+int					key_process(char *c, t_cli *cli);
 void				insert_chr_in_cmdl(char *c, t_cli *cli);
 void				del_chr_from_cmdl(t_cli *cli);
+int					ent_key_processing(t_cli *cli);
 void				refresh_cli(t_cli *cli);
 
 /*

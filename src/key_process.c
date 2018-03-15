@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:15:38 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/15 12:30:14 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/15 12:56:15 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int		crs_chk_del(char *c, t_cli *cli)
 	return (0);	
 }
 
-void			key_process(char *c, t_cli *cli)
+int				key_process(char *c, t_cli *cli)
 {
 	if (!ft_isnotprint(c[0]))
 		insert_chr_in_cmdl(c, cli);
@@ -86,7 +86,7 @@ void			key_process(char *c, t_cli *cli)
 	else if (crs_chk_del(c, cli))
 		del_chr_from_cmdl(cli);
 	else if (!ft_strcmp(c, ENTER_KEY))
-		;
+		return (ent_key_processing(cli));
 	else if (!ft_strcmp(c, CTRL_E))
 	{
 		printf("\nCRS.col: %d\n", CRS.col);
@@ -98,4 +98,5 @@ void			key_process(char *c, t_cli *cli)
 		printf("cli->prt.len: %d\n", cli->prt.len);
 		printf("modulo: %d\n", (cli->prt.len + (int)ft_strlen(cli->cmd)) % CRS.w_cols);
 	}
+	return (0);
 }
