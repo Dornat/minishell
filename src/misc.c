@@ -6,7 +6,7 @@
 /*   By: dpolosuk <hmarvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 15:58:07 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/07 12:09:20 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/15 12:31:01 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,7 @@ void	init_cpos(t_cli *cli)
 	ioctl(0, TIOCGWINSZ, &ws);
 	cli->crs.w_cols = ws.ws_col;
 	cli->crs.w_rows = ws.ws_row;
-	cli->crs.prmt_l = cli->prt.len;
-	cli->crs.col = cli->crs.prmt_l;
+	cli->crs.col = cli->prt.len;
 	cli->crs.row = 0;
 }
 

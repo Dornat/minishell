@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:15:38 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/10 17:28:28 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/15 12:30:14 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int		crs_chk_mv_right(char *c, t_cli *cli)
 		ptr = CRS.row * CRS.w_cols + CRS.col;
 	else
 		ptr = CRS.col;
-	if ((ptr < (int)ft_strlen(cli->cmd) + CRS.prmt_l) &&
+	if ((ptr < (int)ft_strlen(cli->cmd) + PRT.len) &&
 		(!ft_strcmp(c, RIGHT_ARROW) || !ft_strcmp(c, CTRL_F)))
 		return (1);
 	return (0);
@@ -61,7 +61,7 @@ static int		crs_chk_mv_right(char *c, t_cli *cli)
 
 static int		crs_chk_mv_left(char *c, t_cli *cli)
 {
-	if ((CRS.row || (!CRS.row && CRS.col > CRS.prmt_l)) &&
+	if ((CRS.row || (!CRS.row && CRS.col > PRT.len)) &&
 		(!ft_strcmp(c, LEFT_ARROW) || !ft_strcmp(c, CTRL_B)))
 		return (1);
 	return (0);	
@@ -69,7 +69,7 @@ static int		crs_chk_mv_left(char *c, t_cli *cli)
 
 static int		crs_chk_del(char *c, t_cli *cli)
 {
-	if ((CRS.row || (!CRS.row && CRS.col > CRS.prmt_l)) &&
+	if ((CRS.row || (!CRS.row && CRS.col > PRT.len)) &&
 		(!ft_strcmp(c, DEL_KEY)))
 		return (1);
 	return (0);	
@@ -86,6 +86,8 @@ void			key_process(char *c, t_cli *cli)
 	else if (crs_chk_del(c, cli))
 		del_chr_from_cmdl(cli);
 	else if (!ft_strcmp(c, ENTER_KEY))
+		;
+	else if (!ft_strcmp(c, CTRL_E))
 	{
 		printf("\nCRS.col: %d\n", CRS.col);
 		printf("CRS.w_cols: %d\n", CRS.w_cols);

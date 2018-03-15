@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 16:08:10 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/10 17:26:53 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/15 12:30:03 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ typedef struct		s_cpos
 {
 	int		w_cols;
 	int		w_rows;
-	int		prmt_l;
 	int		col;
 	int		row;
 	int		grows;
