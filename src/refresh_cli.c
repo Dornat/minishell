@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 16:35:54 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/10 16:38:19 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/15 15:25:09 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void		reset_crs_2(t_cli *cli)
 	tputs(tgetstr(MV_BEG, NULL), 0, ft_putcchar);
 }
 
-static void		reset_crs(t_cli *cli)
+void			reset_crs(t_cli *cli)
 {
 	int		row;
 

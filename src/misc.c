@@ -6,7 +6,7 @@
 /*   By: dpolosuk <hmarvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 15:58:07 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/15 12:31:01 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/15 16:44:52 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,35 @@ char	**copy_env()
 	return (cp);
 }
 
+/*
+** peekb does sneak peek backwards one char from last char in a string. 
+** If string has less than 2 chars in it, it's not good to go to that memory,
+** this function helps to prevent doing that.
+*/
+
+int		peekb(char c, char *s)
+{
+	int		len;
+
+	len = ft_strlen(s);
+	if (len < 2)
+		return (0);
+	if (s[len - 2] == c)
+		return (1);
+	return (0);
+}
+
+/*
+** lcins checks if last char in the string is equal to given char
+*/
+
+int		lcins(char c, char *s)
+{
+	if (s[ft_strlen(s) - 1] == c)
+		return (1);
+	return (0);
+}
+
 void	init_term_data(t_cli *cli)
 {
 	char	buf[CONV_MAX_BUFF];
@@ -108,8 +137,13 @@ void	init_term_data(t_cli *cli)
 	tgetent(buf, termtype);
 	enable_raw_mode();
 	cli->prt.p = ft_strdup("[msh] $> \0");
+	cli->prt.tp = NULL;
 	cli->prt.len = ft_strlen(cli->prt.p);
 	cli->cmd = ft_strnew(256);
+	cli->tcmd = ft_strnew(256);
+	cli->bs = 0;
+	cli->qt = 0;
+	cli->dqt = 0;
 	cli->env = copy_env();
 	init_cpos(cli);
 }

@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 16:08:10 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/15 12:52:20 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/15 16:44:48 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct		s_cpos
 typedef struct		s_prmt
 {
 	char	*p;
+	char	*tp;
 	int		len;
 }					t_prmt;
 
@@ -85,10 +86,14 @@ typedef struct		s_prmt
 
 typedef struct		s_cli
 {
-	t_cpos		crs;
-	t_prmt		prt;
-	char		*cmd;
-	char		**env;
+	t_cpos			crs;
+	t_prmt			prt;
+	char			*cmd;
+	char			*tcmd;
+	unsigned int	bs:1;
+	unsigned int	qt:1;
+	unsigned int	dqt:1;
+	char			**env;
 }					t_cli;
 
 /*
@@ -98,6 +103,10 @@ typedef struct		s_cli
 # define CRS cli->crs
 # define PRT cli->prt
 # define CMD cli->cmd
+# define TMP cli->tcmd
+# define BS cli->bs
+# define QT cli->qt
+# define DQT cli->dqt
 
 /*
 ** Main functions
@@ -117,6 +126,7 @@ void				insert_chr_in_cmdl(char *c, t_cli *cli);
 void				del_chr_from_cmdl(t_cli *cli);
 int					ent_key_processing(t_cli *cli);
 void				refresh_cli(t_cli *cli);
+void				reset_crs(t_cli *cli);
 
 /*
 ** Misc functions
@@ -124,5 +134,7 @@ void				refresh_cli(t_cli *cli);
 
 int					ft_isnotprint(int c);
 int					ft_putcchar(int c);
+int					peekb(char c, char *s);
+int					lcins(char c, char *s);
 
 #endif
