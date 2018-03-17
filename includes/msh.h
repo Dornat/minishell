@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 16:08:10 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/15 16:44:48 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/17 11:34:59 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef struct		s_cli
 	t_prmt			prt;
 	char			*cmd;
 	char			*tcmd;
-	unsigned int	bs:1;
+	unsigned int	bs;
 	unsigned int	qt:1;
 	unsigned int	dqt:1;
 	char			**env;
@@ -104,6 +104,11 @@ typedef struct		s_cli
 # define PRT cli->prt
 # define CMD cli->cmd
 # define TMP cli->tcmd
+
+/*
+** BS is for saving cursor position globally when dealing with quoting
+*/
+
 # define BS cli->bs
 # define QT cli->qt
 # define DQT cli->dqt
@@ -124,7 +129,11 @@ void				init_cpos(t_cli *cli);
 int					key_process(char *c, t_cli *cli);
 void				insert_chr_in_cmdl(char *c, t_cli *cli);
 void				del_chr_from_cmdl(t_cli *cli);
+
 int					ent_key_processing(t_cli *cli);
+int					parse_qt_bs(char *s, int i, t_cli *cli);
+int					parse_qt_are_there_null(char *s, int i, t_cli *cli);
+
 void				refresh_cli(t_cli *cli);
 void				reset_crs(t_cli *cli);
 

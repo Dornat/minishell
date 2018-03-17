@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 13:38:21 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/15 16:35:15 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/17 11:35:07 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,9 @@ static void		rfrsh_for_ent(t_cli *cli)
 	tputs(tgetstr(LEAVE_INS_MODE, NULL), 0, ft_putcchar);
 }
 
-int		parse_qt_bc(char *s)
-{
-	int		i;
-
-	if (!s)
-		return (0);
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == '\\' || s[i] == '\'' || s[i] == '\"')
-			return (1);
-		i++;
-	}
-	return (0);
-}
+/*
+** ent_key_processing processes ENTER key and handles quoting
+*/
 
 int		ent_key_processing(t_cli *cli)
 {
@@ -45,24 +33,31 @@ int		ent_key_processing(t_cli *cli)
 		ft_memcpy(TMP, CMD, ft_strlen(CMD));
 	else if (CMD[0])
 		ft_strcat(TMP, CMD);
-	if (parse_qt_bc(TMP))
+	if (parse_qt_bs(TMP, BS, cli))
 	{
 		if (PRT.tp == NULL)
 		{
 			PRT.tp = PRT.p;
 			PRT.p = ft_strdup("> \0");
 		}
+		PRT.len = ft_strlen(PRT.p);
+		CRS.col = PRT.len;
+		CRS.row = 0;
 	}
 	else
 	{
-		if (PRT.tp)
+		if (PRT.tp && PRT.p)
 		{
 			ft_strdel(&PRT.p);
 			PRT.p = PRT.tp;
+			PRT.tp = NULL;
 			PRT.len = ft_strlen(PRT.p);
 		}
 		CRS.col = PRT.len;
 		CRS.row = 0;
+		printf("TMP: %s\n", TMP);
+		ft_bzero(cli->tcmd, ft_strlen(cli->tcmd));
+		BS = 0;
 	}
 	return (1);
 }

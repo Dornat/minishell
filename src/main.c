@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:13:45 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/15 16:36:33 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/16 15:12:54 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ int		main(void)
 			{
 				ft_bzero(cli.cmd, ft_strlen(cli.cmd));
 				ft_putchar('\n');
+				/* ft_putstr(cli.tcmd); */
+				/* ft_putchar('\n'); */
+				/* ft_bzero(cli.tcmd, ft_strlen(cli.tcmd)); */
 				break ;
 			}
 		}

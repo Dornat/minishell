@@ -6,7 +6,7 @@
 #    By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/09 13:27:26 by dpolosuk          #+#    #+#              #
-#    Updated: 2018/03/15 13:11:46 by dpolosuk         ###   ########.fr        #
+#    Updated: 2018/03/17 11:36:19 by dpolosuk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,8 @@ SRC = del_chr_from_cmdl.c \
 		key_process.c \
 		main.c \
 		misc.c \
+		parse_qt_are_there_null.c \
+		parse_qt_bs.c \
 		refresh_cli.c \
 
 INCLUDE = -I ./includes -I ./lft3.1/includes
