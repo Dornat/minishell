@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 11:54:24 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/18 16:41:18 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/18 17:57:06 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,18 @@ int		parse_cmd(t_cli *cli)
 {
 	if (!(ACMD = ft_strsplit(TMP, ' ')))
 		return (1);
-	if (path_exist(cli))
+	if (ft_strrchr(ACMD[0], '/'))
+	{
+		if (PTH[0] == '\0')
+			ft_memcpy(PTH, ACMD[0], ft_strlen(ACMD[0]));
+		else
+		{
+			ft_bzero(PTH, ft_strlen(PTH));
+			ft_memcpy(PTH, ACMD[0], ft_strlen(ACMD[0]));
+		}
+		return (0);
+	}
+	else if (path_exist(cli))
 	{
 		if (find_executable(cli))
 			return (0);

@@ -6,25 +6,34 @@
 /*   By: dpolosuk <hmarvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 15:58:07 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/18 16:10:04 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/18 19:14:51 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <msh.h>
 
+void	disable_raw_mode(void)
+{
+	extern struct termios 		g_orig_termios;
+
+	tcsetattr(0, TCSANOW, &g_orig_termios);
+}
+
 void	enable_raw_mode(void)
 {
-	struct termios		raw;
+	extern struct termios		g_raw;
+	extern struct termios		g_orig_termios;
 
-	tcgetattr(0, &raw);
-	raw.c_lflag &= ~(ICANON);
+	tcgetattr(0, &g_raw);
+	g_orig_termios = g_raw;
+	g_raw.c_lflag &= ~(ICANON);
 	//raw.c_lflag &= ~(ISIG);
-	raw.c_lflag &= ~(ECHO);
+	g_raw.c_lflag &= ~(ECHO);
 	//raw.c_oflag &= ~(OPOST);
-	raw.c_cc[VTIME] = 0;
-	raw.c_cc[VMIN] = 1;
-	//tcsetattr(0, TCSAFLUSH, &raw);
-	tcsetattr(0, TCSANOW, &raw);
+	//g_raw.c_cc[VTIME] = 0;
+	g_raw.c_cc[VMIN] = 1;
+	tcsetattr(0, TCSAFLUSH, &g_raw);
+	//tcsetattr(0, TCSANOW, &raw);
 }
 
 int		ft_putcchar(int c)

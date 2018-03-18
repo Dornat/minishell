@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 16:08:10 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/18 16:22:32 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/18 18:09:48 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ typedef struct		s_cli
 
 void				init_term_data(t_cli *cli);
 void				enable_raw_mode(void);
+void				disable_raw_mode(void);
 char				**copy_env();
 void				init_cpos(t_cli *cli);
 
