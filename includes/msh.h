@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 16:08:10 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/17 11:34:59 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/18 16:22:32 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <term.h>
 # include <sys/ioctl.h>
 # include <stdio.h>
+# include <dirent.h>
 # include <libft.h>
 
 /*
@@ -24,6 +25,9 @@
 */
 
 # define CONV_MAX_BUFF 2048
+
+# define PATH_LEN 256
+# define CMD_LEN 256
 
 /*
 ** Defines for capabilities in termcap
@@ -91,27 +95,36 @@ typedef struct		s_cli
 	char			*cmd;
 	char			*tcmd;
 	unsigned int	bs;
-	unsigned int	qt:1;
+	char			**acmd;
+	unsigned int	brk:1;
 	unsigned int	dqt:1;
 	char			**env;
+	char			*epth;
+	char			*pth;
 }					t_cli;
 
 /*
 ** Defines for t_cli struct
+** CRS - cursor struct
+** PRT - prompt struct
+** CMD - current command in the prompt
+** TMP - saved command for dealing with quoting
+** BS - for saving cursor position globally when dealing with quoting
+** ACMD - splitted CMD
+** ENV - copy of environ
+** EPTH - saved path from environ (PATH=)
+** PTH - temp path saved from environ PATH to find executable
 */
 
 # define CRS cli->crs
 # define PRT cli->prt
 # define CMD cli->cmd
 # define TMP cli->tcmd
-
-/*
-** BS is for saving cursor position globally when dealing with quoting
-*/
-
 # define BS cli->bs
-# define QT cli->qt
-# define DQT cli->dqt
+# define ACMD cli->acmd
+# define ENV cli->env
+# define EPTH cli->epth
+# define PTH cli->pth
 
 /*
 ** Main functions
@@ -136,6 +149,18 @@ int					parse_qt_are_there_null(char *s, int i, t_cli *cli);
 
 void				refresh_cli(t_cli *cli);
 void				reset_crs(t_cli *cli);
+
+/*
+** Parse cmd functions
+*/
+
+int					parse_cmd(t_cli *cli);
+
+/*
+** Execution of external programs
+*/
+
+void				exec_prog(t_cli *cli);
 
 /*
 ** Misc functions

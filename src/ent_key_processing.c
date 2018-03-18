@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 13:38:21 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/17 11:35:07 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/17 15:15:14 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int		ent_key_processing(t_cli *cli)
 		PRT.len = ft_strlen(PRT.p);
 		CRS.col = PRT.len;
 		CRS.row = 0;
+		return (-1);
 	}
 	else
 	{
@@ -55,8 +56,6 @@ int		ent_key_processing(t_cli *cli)
 		}
 		CRS.col = PRT.len;
 		CRS.row = 0;
-		printf("TMP: %s\n", TMP);
-		ft_bzero(cli->tcmd, ft_strlen(cli->tcmd));
 		BS = 0;
 	}
 	return (1);

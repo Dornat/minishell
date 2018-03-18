@@ -6,7 +6,7 @@
 /*   By: dpolosuk <hmarvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 15:58:07 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/15 16:44:52 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/18 16:10:04 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,16 +135,19 @@ void	init_term_data(t_cli *cli)
 
 	termtype = find_term_type();
 	tgetent(buf, termtype);
+	ft_strdel(&termtype);
 	enable_raw_mode();
 	cli->prt.p = ft_strdup("[msh] $> \0");
 	cli->prt.tp = NULL;
 	cli->prt.len = ft_strlen(cli->prt.p);
-	cli->cmd = ft_strnew(256);
-	cli->tcmd = ft_strnew(256);
+	cli->cmd = ft_strnew(CMD_LEN);
+	cli->tcmd = ft_strnew(CMD_LEN);
 	cli->bs = 0;
-	cli->qt = 0;
+	cli->brk = 0;
 	cli->dqt = 0;
 	cli->env = copy_env();
+	cli->epth = NULL;
+	cli->pth = ft_strnew(PATH_LEN);
 	init_cpos(cli);
 }
 
