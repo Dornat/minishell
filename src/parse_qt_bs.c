@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 11:29:51 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/17 11:37:54 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/18 17:20:31 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,20 @@
 int		parse_quote(char *s, int i, t_cli *cli)
 {
 	int		qt;
+	int		flag;
 
 	qt = 0;
+	flag = 0;
 	while (s[i])
 	{
-		if (s[i] == '\'' && !qt)
+		if (s[i] == '\'' && !flag)
+		{
 			qt = i;
-		else if (s[i] == '\'' && qt)
+			flag = 1;
+		}
+		else if (s[i] == '\'' && flag)
 			break ;
 		i++;
-	}
-	if (s[i] == '\0')
-	{
-		s[i] = '\n';
-		BS = qt;
-		return (-1);
 	}
 	ft_memmove(s + qt, s + qt + 1, ft_strlen(s + qt + 1));
 	s[ft_strlen(s) - 1] = '\0';
@@ -52,23 +51,22 @@ int		parse_dquote_bs(char *s, int i)
 int		parse_dquote(char *s, int i, t_cli *cli)
 {
 	int		dqt;
+	int		flag;
 
 	dqt = 0;
+	flag = 0;
 	while (s[i])
 	{
-		if (s[i] == '\"' && !dqt)
+		if (s[i] == '\"' && !flag)
+		{
 			dqt = i;
+			flag = 1;
+		}
 		else if (s[i] == '\\')
 			parse_dquote_bs(s, i);
-		else if (s[i] == '\"' && dqt)
+		else if (s[i] == '\"' && flag)
 			break ;
 		i++;
-	}
-	if (s[i] == '\0')
-	{
-		s[i] = '\n';
-		BS = dqt;
-		return (-1);
 	}
 	ft_memmove(s + dqt, s + dqt + 1, ft_strlen(s + dqt + 1));
 	s[ft_strlen(s) - 1] = '\0';

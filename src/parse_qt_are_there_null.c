@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 11:34:24 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/17 11:35:44 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/18 17:23:58 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static int		parse_qt_are_there_null_if(char *s, int i, t_cli *cli)
 		else if (s[i] == '\0')
 		{
 			BS = qt;
+			s[i] = '\n';
 			return (1);
 		}
 	}
@@ -44,6 +45,7 @@ static int		parse_qt_are_there_null_elif(char *s, int i, t_cli *cli)
 		else if (s[i] == '\0')
 		{
 			BS = qt;
+			s[i] = '\n';
 			return (1);
 		}
 	}

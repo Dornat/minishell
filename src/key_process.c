@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:15:38 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/15 17:01:48 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/18 17:11:29 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int				key_process(char *c, t_cli *cli)
 		printf("CMD: %s\n", cli->cmd);
 		printf("len of CMD: %d\n", (int)ft_strlen(cli->cmd));
 		printf("TMP: %s\n", TMP);
-		printf("CRS.row: %d\n", CRS.row);
+		printf("BS: %d\n", BS);
 		printf("CRS.grows: %d\n", CRS.grows);
 	}
 	return (0);
