@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 16:10:44 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/18 19:06:18 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/19 12:45:53 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	exec_prog(t_cli *cli)
 {
-	extern pid_t	g_pid;
-	extern struct termios g_raw;
+	extern pid_t			g_pid;
+	extern struct termios	g_raw;
 
 	if ((g_pid = fork()) < 0)
 		ft_putendl_fd("Fork returned error!!!", 2);
@@ -26,5 +26,4 @@ void	exec_prog(t_cli *cli)
 	}
 	wait(NULL);
 	tcsetattr(0, TCSAFLUSH, &g_raw);
-	//enable_raw_mode();
 }

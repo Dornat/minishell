@@ -6,7 +6,7 @@
 /*   By: dpolosuk <hmarvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 15:58:07 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/18 19:14:51 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/19 12:08:06 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char	**copy_env()
 	i = 0;
 	while (environ[len])
 		len++;
-	if (!(cp = (char**)malloc(sizeof(char*) * len + 1)))
+	if (!(cp = (char**)malloc(sizeof(char*) * (len + 1))))
 		return (NULL);
 	while (i < len)
 	{

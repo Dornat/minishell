@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:19:38 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/10 16:37:36 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/19 11:48:43 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,24 @@ static void		global_rows_update(t_cli *cli)
 	}
 }
 
+static void		check_for_realloc(t_cli *cli)
+{
+	char	*tmp1;
+	char	*tmp2;
+
+	tmp1 = CMD;
+	tmp2 = TMP;
+	if ((ft_strlen(CMD) % 256 > 242) || (ft_strlen(TMP) % 256 > 242))
+	{
+		CMD = ft_strnew(ft_strlen(tmp1) * 2);
+		ft_memcpy(CMD, tmp1, ft_strlen(tmp1));
+		TMP = ft_strnew(ft_strlen(tmp2) * 2);
+		ft_memcpy(TMP, tmp2, ft_strlen(tmp2));
+		ft_strdel(&tmp1);
+		ft_strdel(&tmp2);
+	}
+}
+
 void			insert_chr_in_cmdl(char *c, t_cli *cli)
 {
 	int		mid_flag;
@@ -64,6 +82,7 @@ void			insert_chr_in_cmdl(char *c, t_cli *cli)
 	mid_flag = 0;
 	tputs(tgetstr(ENT_INS_MODE, NULL), 0, ft_putcchar);
 	ft_putstr_fd(c, 0);
+	check_for_realloc(cli);
 	if (chk_if_crs_in_mid(cli, &mid_flag))
 		ins_in_middle_of_cmdl(c, cli);
 	else

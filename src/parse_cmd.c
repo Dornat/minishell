@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 11:54:24 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/18 17:57:06 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/19 13:31:49 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,11 @@ int		append_pth_of_exec(t_cli *cli)
 		{
 			ft_strcat(PTH, "/");
 			ft_strcat(PTH, ACMD[0]);
+			closedir(dir_ptr);
 			return (1);
 		}
 	}
+	closedir(dir_ptr);
 	return (0);
 }
 
@@ -73,16 +75,33 @@ int		find_executable(t_cli *cli)
 			ft_memcpy(PTH, dr[i], ft_strlen(dr[i]));
 		}
 		if (append_pth_of_exec(cli))
+		{
+			free_double_ptr(dr);
 			return (1);
+		}
 		i++;
 	}
+	free_double_ptr(dr);
 	return (0);
+}
+
+void	bi_exit(t_cli *cli)
+{
+	ft_strdel(&PRT.p);
+	ft_strdel(&CMD);
+	ft_strdel(&TMP);
+	free_double_ptr(ENV);
+	ft_strdel(&PTH);
+	disable_raw_mode();
+	exit(0);
 }
 
 int		parse_cmd(t_cli *cli)
 {
 	if (!(ACMD = ft_strsplit(TMP, ' ')))
 		return (1);
+	if (!ft_strcmp(ACMD[0], "exit"))
+		bi_exit(cli);
 	if (ft_strrchr(ACMD[0], '/'))
 	{
 		if (PTH[0] == '\0')

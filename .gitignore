@@ -14,3 +14,4 @@ keykodes.c
 winsize.c
 *~
 G*
+*.dSYM
