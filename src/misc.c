@@ -6,7 +6,7 @@
 /*   By: dpolosuk <hmarvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 15:58:07 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/19 12:08:06 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/19 18:03:55 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,11 +152,13 @@ void	init_term_data(t_cli *cli)
 	cli->cmd = ft_strnew(CMD_LEN);
 	cli->tcmd = ft_strnew(CMD_LEN);
 	cli->bs = 0;
+	cli->acmd = NULL;
 	cli->brk = 0;
 	cli->dqt = 0;
 	cli->env = copy_env();
 	cli->epth = NULL;
 	cli->pth = ft_strnew(PATH_LEN);
+	cli->bi_flag = 0;
 	init_cpos(cli);
 }
 

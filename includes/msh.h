@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 16:08:10 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/19 11:01:21 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/19 18:02:51 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,11 @@ typedef struct		s_cli
 	char			**env;
 	char			*epth;
 	char			*pth;
+	enum			e_bi
+	{
+		ext, cd, env
+	}				t_bi;
+	unsigned int	bi_flag:1;
 }					t_cli;
 
 /*
@@ -114,6 +119,8 @@ typedef struct		s_cli
 ** ENV - copy of environ
 ** EPTH - saved path from environ (PATH=)
 ** PTH - temp path saved from environ PATH to find executable
+** BI - builtin enum struct
+** BIF - flag for checking if user entered builtin program
 */
 
 # define CRS cli->crs
@@ -125,6 +132,8 @@ typedef struct		s_cli
 # define ENV cli->env
 # define EPTH cli->epth
 # define PTH cli->pth
+# define BI cli->t_bi
+# define BIF cli->bi_flag
 
 /*
 ** Main functions
@@ -162,6 +171,12 @@ int					parse_cmd(t_cli *cli);
 */
 
 void				exec_prog(t_cli *cli);
+
+/*
+** Execution of builtins
+*/
+
+void				exec_builtin(t_cli *cli);
 
 /*
 ** Misc functions

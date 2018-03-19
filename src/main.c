@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:13:45 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/19 11:01:59 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/19 18:26:29 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,13 @@ void	loops(int kp, char *c, t_cli *cli)
 				}
 				else if (TMP[0])
 				{
-					exec_prog(cli);
+					if (BIF)
+					{
+						exec_builtin(cli);
+						BIF = 0;
+					}
+					else
+						exec_prog(cli);
 				}
 				ft_bzero(CMD, ft_strlen(CMD));
 				ft_bzero(TMP, ft_strlen(TMP));
@@ -71,6 +77,17 @@ void	signal_handler(int sig)
 {
 	if (!g_pid)
 	{
+		ft_putchar('\n');
+		ft_putchar('\n');
+		ft_putchar('\n');
+		ft_putchar('\n');
+		ft_putchar('\n');
+		ft_putchar('\n');
+		ft_putchar('\n');
+		ft_putchar('\n');
+		ft_putchar('\n');
+		ft_putchar('\n');
+		ft_putchar('\n');
 		ft_putchar('\n');
 		exit(sig);
 	}

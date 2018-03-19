@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 11:54:24 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/19 13:31:49 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/19 18:07:20 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,66 @@ void	bi_exit(t_cli *cli)
 	exit(0);
 }
 
+void	bi_cd(t_cli *cli)
+{
+	return ;
+}
+
+void	bi_env(t_cli *cli)
+{
+	int						i;
+	extern struct termios	g_raw;
+
+	i = 0;
+	disable_raw_mode();
+	while (ENV[i])
+	{
+		ft_putstr(ENV[i]);
+		ft_putchar('\n');
+		i++;
+	}
+	tcsetattr(0, TCSAFLUSH, &g_raw);
+}
+
+void	(*bi_ptr[3]) (t_cli *cli) =
+{
+	bi_exit, bi_cd, bi_env
+};
+
+void		exec_builtin(t_cli *cli)
+{
+	(*bi_ptr[BI]) (cli);
+}
+
+static int		check_for_builtin(t_cli *cli)
+{
+	if (!ft_strcmp(ACMD[0], "exit"))
+	{
+		BI = ext;
+		return (1);
+	}
+	if (!ft_strcmp(ACMD[0], "cd"))
+	{
+		BI = cd;
+		return (1);
+	}
+	if (!ft_strcmp(ACMD[0], "env"))
+	{
+		BI = env;
+		return (1);
+	}
+	return (0);
+}
+
 int		parse_cmd(t_cli *cli)
 {
 	if (!(ACMD = ft_strsplit(TMP, ' ')))
 		return (1);
-	if (!ft_strcmp(ACMD[0], "exit"))
-		bi_exit(cli);
+	if (check_for_builtin(cli))
+	{
+		BIF = 1;
+		return (0);
+	}
 	if (ft_strrchr(ACMD[0], '/'))
 	{
 		if (PTH[0] == '\0')

@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:15:38 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/18 17:11:29 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/19 18:00:48 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int				key_process(char *c, t_cli *cli)
 		printf("TMP: %s\n", TMP);
 		printf("BS: %d\n", BS);
 		printf("CRS.grows: %d\n", CRS.grows);
+		printf("BI: %u\n", BI);
 	}
 	return (0);
 }
