@@ -6,16 +6,23 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:13:45 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/21 12:46:49 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/21 12:57:39 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <msh.h>
 
+/*
+** g_pid - for saving pid of a process
+** g_orig_termios - for saving original term state
+** g_raw - raw term state
+** g_ptompt - for saving prompt (for ^C handling)
+*/
+
 pid_t			g_pid;
 struct termios	g_orig_termios;
 struct termios	g_raw;
-char			g_prompt[256];
+char			g_prompt[PATH_LEN];
 
 void	free_double_ptr(char **s)
 {

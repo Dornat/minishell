@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 16:08:10 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/20 17:44:26 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/21 13:45:06 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,11 @@
 
 # define LEFT_ARROW		"\e[D"
 # define RIGHT_ARROW	"\e[C"
-# define CTRL_B			"\x02"
-# define CTRL_F			"\x06"
 # define CTRL_A			"\x01"
+# define CTRL_B			"\x02"
+# define CTRL_D			"\x04"
 # define CTRL_E			"\x05"
+# define CTRL_F			"\x06"
 # define DEL_KEY		"\x7f"
 # define ENTER_KEY		"\n"
 
@@ -177,6 +178,7 @@ void				exec_prog(t_cli *cli);
 */
 
 void				exec_builtin(t_cli *cli);
+void				bi_exit(t_cli *cli);
 void				bi_setenv(t_cli *cli);
 void				bi_unsetenv(t_cli *cli);
 

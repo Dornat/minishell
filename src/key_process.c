@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:15:38 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/19 18:00:48 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/21 13:46:33 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,11 @@ int				key_process(char *c, t_cli *cli)
 		del_chr_from_cmdl(cli);
 	else if (!ft_strcmp(c, ENTER_KEY))
 		return (ent_key_processing(cli));
+	else if (!ft_strcmp(c, CTRL_D))
+	{
+		ft_putstr("exit\n");
+		bi_exit(cli);
+	}
 	else if (!ft_strcmp(c, CTRL_E))
 	{
 		printf("\nCRS.col: %d\n", CRS.col);

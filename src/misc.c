@@ -6,7 +6,7 @@
 /*   By: dpolosuk <hmarvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 15:58:07 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/21 11:28:02 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/21 12:54:59 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int		lcins(char c, char *s)
 
 void	init_term_data(t_cli *cli)
 {
-	extern char		g_prompt[256];
+	extern char		g_prompt[PATH_LEN];
 	char	buf[CONV_MAX_BUFF];
 	char*	termtype;
 
@@ -144,7 +144,7 @@ void	init_term_data(t_cli *cli)
 	ft_strdel(&termtype);
 	enable_raw_mode();
 	cli->prt.p = ft_strdup("[msh] $> \0");
-	ft_bzero(g_prompt, 256);
+	ft_bzero(g_prompt, PATH_LEN);
 	ft_memcpy(g_prompt, PRT.p, ft_strlen(PRT.p));
 	cli->prt.tp = NULL;
 	cli->prt.len = ft_strlen(cli->prt.p);

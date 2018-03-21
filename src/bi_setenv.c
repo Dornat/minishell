@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 15:16:03 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/20 17:16:38 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/21 13:52:08 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,33 @@ t_list		*bi_find_env(t_cli *cli)
 
 	ptr = ENV;
 	cmp = extract_env_name(ACMD[1]);
-	if (!ptr)
+	if (!ptr || !cmp)
 		return (NULL);
 	while (ptr)
 	{
 		if (!ft_strncmp(cmp, (char*)ptr->content, ft_strlen(cmp)))
+		{
+			ft_strdel(&cmp);
 			return (ptr);
+		}
 		ptr = ptr->next;
 	}
+	ft_strdel(&cmp);
 	return (NULL);
+}
+
+int			bi_is_eq_in_arg(char *s)
+{
+	int		i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == '=')
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 void		bi_setenv(t_cli *cli)
@@ -76,7 +94,10 @@ void		bi_setenv(t_cli *cli)
 	}
 	else
 	{
-		ptr = ft_lstnew((const void*)ACMD[1], ft_strlen(ACMD[1]));
-		ft_lstadd_atend(&ENV, ptr);
+		if (bi_is_eq_in_arg(ACMD[1]))
+		{
+			ptr = ft_lstnew((const void*)ACMD[1], ft_strlen(ACMD[1]));
+			ft_lstadd_atend(&ENV, ptr);
+		}
 	}
 }
