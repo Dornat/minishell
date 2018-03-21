@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 16:08:10 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/21 13:45:06 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/21 17:34:30 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,9 @@ void				exec_prog(t_cli *cli);
 void				exec_builtin(t_cli *cli);
 void				bi_exit(t_cli *cli);
 void				bi_setenv(t_cli *cli);
+t_list				*bi_find_env(t_list *env, char *arg);
 void				bi_unsetenv(t_cli *cli);
+void				bi_cd(t_cli *cli);
 
 /*
 ** Misc functions
@@ -190,6 +192,6 @@ int					ft_isnotprint(int c);
 int					ft_putcchar(int c);
 int					peekb(char c, char *s);
 int					lcins(char c, char *s);
-void				free_double_ptr(char **s);
+void				free_double_ptr(char ***s);
 
 #endif

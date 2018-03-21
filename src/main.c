@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:13:45 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/21 14:57:44 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/21 17:17:47 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 ** g_orig_termios - for saving original term state
 ** g_raw - raw term state
 ** g_ptompt - for saving prompt (for ^C handling)
+** g_ctrl - for checking ^C press when handling quoting
 */
 
 pid_t			g_pid;
@@ -25,19 +26,20 @@ struct termios	g_raw;
 char			g_prompt[PATH_LEN];
 int				g_ctrl;
 
-void	free_double_ptr(char **s)
+void	free_double_ptr(char ***s)
 {
 	int		i;
 	
-	if (!s)
+	if (!s || !*s)
 		return ;
 	i = 0;
-	while (s[i])
+	while ((*s)[i])
 	{
-		ft_strdel(&s[i]);
+		ft_strdel(&(*s)[i]);
 		i++;
 	}
-	free(s);
+	free(*s);
+	*s = NULL;
 }
 
 void	loops(int kp, char *c, t_cli *cli)
@@ -75,7 +77,7 @@ void	loops(int kp, char *c, t_cli *cli)
 				}
 				ft_bzero(CMD, ft_strlen(CMD));
 				ft_bzero(TMP, ft_strlen(TMP));
-				free_double_ptr(ACMD);
+				free_double_ptr(&ACMD);
 				break ;
 			}
 		}

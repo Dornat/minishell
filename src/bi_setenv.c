@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 15:16:03 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/21 13:52:08 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/21 17:24:36 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ char		*extract_env_name(char *env_field)
 	return (res);
 }
 
-t_list		*bi_find_env(t_cli *cli)
+t_list		*bi_find_env(t_list *env, char *arg)
 {
 	t_list		*ptr;
 	char		*cmp;
 
-	ptr = ENV;
-	cmp = extract_env_name(ACMD[1]);
+	ptr = env;
+	cmp = extract_env_name(arg);
 	if (!ptr || !cmp)
 		return (NULL);
 	while (ptr)
@@ -85,7 +85,7 @@ void		bi_setenv(t_cli *cli)
 	t_list		*ptr;
 
 	ptr = NULL;
-	if ((ptr = bi_find_env(cli)))
+	if ((ptr = bi_find_env(ENV, ACMD[1])))
 	{
 		ft_memdel(&ptr->content);
 		ptr->content_size = ft_strlen(ACMD[1]);

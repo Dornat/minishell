@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 11:54:24 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/20 19:09:54 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/21 17:14:55 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,12 @@ int		find_executable(t_cli *cli)
 		}
 		if (append_pth_of_exec(cli))
 		{
-			free_double_ptr(dr);
+			free_double_ptr(&dr);
 			return (1);
 		}
 		i++;
 	}
-	free_double_ptr(dr);
+	free_double_ptr(&dr);
 	return (0);
 }
 
@@ -92,13 +92,11 @@ void	bi_exit(t_cli *cli)
 	ft_strdel(&TMP);
 	ft_lstdel(&ENV, ft_lstdelfunc);
 	ft_strdel(&PTH);
+	if (EPTH)
+		ft_strdel(&EPTH);
+	free_double_ptr(&ACMD);
 	disable_raw_mode();
 	exit(0);
-}
-
-void	bi_cd(t_cli *cli)
-{
-	return ;
 }
 
 void	bi_env(t_cli *cli)
@@ -130,31 +128,18 @@ void		exec_builtin(t_cli *cli)
 static int		check_for_builtin(t_cli *cli)
 {
 	if (!ft_strcmp(ACMD[0], "exit"))
-	{
 		BI = ext;
-		return (1);
-	}
-	if (!ft_strcmp(ACMD[0], "cd"))
-	{
+	else if (!ft_strcmp(ACMD[0], "cd"))
 		BI = cd;
-		return (1);
-	}
-	if (!ft_strcmp(ACMD[0], "env"))
-	{
+	else if (!ft_strcmp(ACMD[0], "env"))
 		BI = env;
-		return (1);
-	}
-	if (!ft_strcmp(ACMD[0], "setenv"))
-	{
+	else if (!ft_strcmp(ACMD[0], "setenv"))
 		BI = setnv;
-		return (1);
-	}
-	if (!ft_strcmp(ACMD[0], "unsetenv"))
-	{
+	else if (!ft_strcmp(ACMD[0], "unsetenv"))
 		BI = unsetnv;
-		return (1);
-	}
-	return (0);
+	else
+		return (0);
+	return (1);
 }
 
 int		parse_cmd(t_cli *cli)
