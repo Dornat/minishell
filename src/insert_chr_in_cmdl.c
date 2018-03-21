@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:19:38 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/19 11:48:43 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/21 14:59:54 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,38 @@ static void		check_for_realloc(t_cli *cli)
 	}
 }
 
+void			check_for_ctrl_c(t_cli *cli)
+{
+	extern int		g_ctrl;
+
+	if (!g_ctrl)
+		return ;
+	if (!ft_strcmp(PRT.p, "> "))
+	{
+		if (PRT.tp && PRT.p)
+		{
+			ft_strdel(&PRT.p);
+			PRT.p = PRT.tp;
+			PRT.tp = NULL;
+			PRT.len = ft_strlen(PRT.p);
+		}
+		CRS.col = PRT.len;
+		CRS.row = 0;
+		BS = 0;
+		ft_bzero(CMD, ft_strlen(CMD));
+		ft_bzero(TMP, ft_strlen(TMP));
+		g_ctrl = 0;
+	}
+	else
+		g_ctrl = 0;
+}
+
 void			insert_chr_in_cmdl(char *c, t_cli *cli)
 {
 	int		mid_flag;
 
 	mid_flag = 0;
+	check_for_ctrl_c(cli);
 	tputs(tgetstr(ENT_INS_MODE, NULL), 0, ft_putcchar);
 	ft_putstr_fd(c, 0);
 	check_for_realloc(cli);

@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 17:40:36 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/20 19:10:48 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/21 14:09:25 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	ft_lstdel_first_node(t_list **alst)
 	}
 }
 
+
+
 void	bi_unsetenv(t_cli *cli)
 {
 	t_list		*ptr;
@@ -69,5 +71,7 @@ void	bi_unsetenv(t_cli *cli)
 				break ;
 			before = before->next;
 		}
+		if ((after = ptr->next) == NULL)
+			return ;
 	}
 }
