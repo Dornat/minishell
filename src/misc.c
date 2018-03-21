@@ -6,7 +6,7 @@
 /*   By: dpolosuk <hmarvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 15:58:07 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/19 18:03:55 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/21 11:28:02 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,28 +84,24 @@ void	init_cpos(t_cli *cli)
 	cli->crs.row = 0;
 }
 
-char	**copy_env()
+t_list		*copy_env(void)
 {
 	extern char		**environ;
-	char			**cp;
-	int				len;
+	t_list			*res;
+	t_list			*tmp;
 	int				i;
 
 	if (!environ)
 		return (NULL);
-	len = 0;
-	i = 0;
-	while (environ[len])
-		len++;
-	if (!(cp = (char**)malloc(sizeof(char*) * (len + 1))))
-		return (NULL);
-	while (i < len)
+	i = 1;
+	res = ft_lstnew(environ[0], ft_strlen(environ[0]));
+	while (environ[i])
 	{
-		cp[i] = ft_strdup(environ[i]);
+		tmp = ft_lstnew(environ[i], ft_strlen(environ[i]));
+		ft_lstadd_atend(&res, tmp);
 		i++;
 	}
-	cp[i] = NULL;
-	return (cp);
+	return (res);
 }
 
 /*
@@ -139,6 +135,7 @@ int		lcins(char c, char *s)
 
 void	init_term_data(t_cli *cli)
 {
+	extern char		g_prompt[256];
 	char	buf[CONV_MAX_BUFF];
 	char*	termtype;
 
@@ -147,6 +144,8 @@ void	init_term_data(t_cli *cli)
 	ft_strdel(&termtype);
 	enable_raw_mode();
 	cli->prt.p = ft_strdup("[msh] $> \0");
+	ft_bzero(g_prompt, 256);
+	ft_memcpy(g_prompt, PRT.p, ft_strlen(PRT.p));
 	cli->prt.tp = NULL;
 	cli->prt.len = ft_strlen(cli->prt.p);
 	cli->cmd = ft_strnew(CMD_LEN);

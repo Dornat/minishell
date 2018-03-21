@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 16:08:10 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/19 18:02:51 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/20 17:44:26 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,12 @@ typedef struct		s_cli
 	char			**acmd;
 	unsigned int	brk:1;
 	unsigned int	dqt:1;
-	char			**env;
+	t_list			*env;
 	char			*epth;
 	char			*pth;
 	enum			e_bi
 	{
-		ext, cd, env
+		ext, cd, env, setnv, unsetnv
 	}				t_bi;
 	unsigned int	bi_flag:1;
 }					t_cli;
@@ -117,7 +117,7 @@ typedef struct		s_cli
 ** BS - for saving cursor position globally when dealing with quoting
 ** ACMD - splitted CMD
 ** ENV - copy of environ
-** EPTH - saved path from environ (PATH=)
+** EPTH - saved path from environ (after PATH=)
 ** PTH - temp path saved from environ PATH to find executable
 ** BI - builtin enum struct
 ** BIF - flag for checking if user entered builtin program
@@ -142,7 +142,7 @@ typedef struct		s_cli
 void				init_term_data(t_cli *cli);
 void				enable_raw_mode(void);
 void				disable_raw_mode(void);
-char				**copy_env();
+t_list				*copy_env(void);
 void				init_cpos(t_cli *cli);
 
 /*
@@ -177,6 +177,8 @@ void				exec_prog(t_cli *cli);
 */
 
 void				exec_builtin(t_cli *cli);
+void				bi_setenv(t_cli *cli);
+void				bi_unsetenv(t_cli *cli);
 
 /*
 ** Misc functions

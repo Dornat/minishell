@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 11:54:24 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/19 18:07:20 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/20 19:09:54 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 int		path_exist(t_cli *cli)
 {
-	int		i;
+	t_list		*ptr;
 
-	i = 0;
-	while (ENV[i])
+	ptr = ENV;
+	while (ptr)
 	{
-		if (ENV[i][0] == 'P')
+		if (((char*)ptr->content)[0] == 'P')
 		{
-			if (!ft_strncmp(ENV[i], "PATH=", 5))
+			if (!ft_strncmp((char*)ptr->content, "PATH=", 5))
 			{
 				if (!EPTH)
-					EPTH = ft_strdup(ENV[i]);
+					EPTH = ft_strdup((char*)ptr->content);
 				return (1);
 			}
 		}
-		i++;
+		ptr = ptr->next;
 	}
 	if (EPTH)
 		ft_strdel(&EPTH);
@@ -90,7 +90,7 @@ void	bi_exit(t_cli *cli)
 	ft_strdel(&PRT.p);
 	ft_strdel(&CMD);
 	ft_strdel(&TMP);
-	free_double_ptr(ENV);
+	ft_lstdel(&ENV, ft_lstdelfunc);
 	ft_strdel(&PTH);
 	disable_raw_mode();
 	exit(0);
@@ -103,23 +103,23 @@ void	bi_cd(t_cli *cli)
 
 void	bi_env(t_cli *cli)
 {
-	int						i;
 	extern struct termios	g_raw;
+	t_list					*ptr;
 
-	i = 0;
+	ptr = ENV;
 	disable_raw_mode();
-	while (ENV[i])
+	while (ptr)
 	{
-		ft_putstr(ENV[i]);
+		ft_putstr((char*)ptr->content);
 		ft_putchar('\n');
-		i++;
+		ptr = ptr->next;
 	}
 	tcsetattr(0, TCSAFLUSH, &g_raw);
 }
 
-void	(*bi_ptr[3]) (t_cli *cli) =
+void	(*bi_ptr[5]) (t_cli *cli) =
 {
-	bi_exit, bi_cd, bi_env
+	bi_exit, bi_cd, bi_env, bi_setenv, bi_unsetenv
 };
 
 void		exec_builtin(t_cli *cli)
@@ -142,6 +142,16 @@ static int		check_for_builtin(t_cli *cli)
 	if (!ft_strcmp(ACMD[0], "env"))
 	{
 		BI = env;
+		return (1);
+	}
+	if (!ft_strcmp(ACMD[0], "setenv"))
+	{
+		BI = setnv;
+		return (1);
+	}
+	if (!ft_strcmp(ACMD[0], "unsetenv"))
+	{
+		BI = unsetnv;
 		return (1);
 	}
 	return (0);

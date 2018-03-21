@@ -6,13 +6,15 @@
 #    By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/09 13:27:26 by dpolosuk          #+#    #+#              #
-#    Updated: 2018/03/17 16:50:43 by dpolosuk         ###   ########.fr        #
+#    Updated: 2018/03/20 19:10:17 by dpolosuk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC = del_chr_from_cmdl.c \
+SRC = bi_setenv.c \
+		bi_unsetenv.c \
+		del_chr_from_cmdl.c \
 		ent_key_processing.c \
 		exec_prog.c \
 		insert_chr_in_cmdl.c \
