@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:13:45 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/21 17:17:47 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/22 10:42:46 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	free_double_ptr(char ***s)
 
 void	loops(int kp, char *c, t_cli *cli)
 {
+	int		no_such_file;
+	
 	while (1)
 	{
 		ft_putstr(PRT.p);
@@ -60,9 +62,11 @@ void	loops(int kp, char *c, t_cli *cli)
 			else if (kp == 1)
 			{
 				ft_putchar('\n');
-				if (parse_cmd(cli))
+				if ((no_such_file = parse_cmd(cli)))
 				{
-					if (ACMD[0])
+					if (no_such_file == -1)
+						ft_printf("msh: %s: No such file or directory\n", ACMD[0]);
+					else if (ACMD[0])
 						ft_printf("msh: %s: command not found\n", ACMD[0]);
 				}
 				else if (TMP[0])

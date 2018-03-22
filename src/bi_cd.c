@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 17:01:50 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/21 19:47:50 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/22 11:57:44 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void			swap_pwd_oldpwd(t_list *env)
 	char		*buf;
 
 	new = NULL;
-	buf = ft_strnew(PATH_LEN);
+	buf = NULL;
 	buf = getcwd(buf, PATH_LEN);
 	if (!(ppwd = bi_find_env(env, "PWD=")))
 		set_pwd(env, &ppwd, buf);
@@ -71,18 +71,34 @@ static void			bi_change_dir(char *path, t_cli *cli)
 		swap_pwd_oldpwd(ENV);
 }
 
+static void			go_back(t_cli *cli)
+{
+	t_list		*ptr;
+
+	if (!(ptr = bi_find_env(ENV, "OLDPWD=")))
+		ft_putstr("msh: cd: OLDPWD not set\n");
+	else
+	{
+		ft_putstr((char*)ptr->content + 7);
+		ft_putchar('\n');
+		bi_change_dir((char*)ptr->content + 7, cli);
+	}
+}
+
 void	bi_cd(t_cli *cli)
 {
 	t_list		*ptr;
 
 	ptr = NULL;
-	if (!ACMD[1])
+	if (!ACMD[1] || !ft_strcmp(ACMD[1], "--"))
 	{
 		if (!(ptr = find_home(cli)))
 			ft_putstr("msh: cd: HOME not set\n");
 		else
 			bi_change_dir(((char*)ptr->content) + 5, cli);
 	}
+	else if (!ft_strcmp(ACMD[1], "-"))
+		go_back(cli);
 	else
 		bi_change_dir(ACMD[1], cli);
 }

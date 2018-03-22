@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 11:54:24 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/21 17:14:55 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/22 11:50:14 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		append_pth_of_exec(t_cli *cli)
 	return (0);
 }
 
-int		find_executable(t_cli *cli)
+static int		find_executable(t_cli *cli)
 {
 	char	**dr;
 	int		i;
@@ -142,7 +142,53 @@ static int		check_for_builtin(t_cli *cli)
 	return (1);
 }
 
-int		parse_cmd(t_cli *cli)
+static int		find_executable_with_path(char *pth)
+{
+	DIR				*dir_ptr;
+	struct dirent	*dir_struct;
+	char			path[PATH_LEN];
+	char			*file_name;
+
+	file_name = ft_strdup(ft_strrchr(pth, '/') + 1);
+	ft_bzero(path, PATH_LEN);
+	ft_memcpy(path, pth, ft_strlen(pth));
+	*(ft_strrchr(path, '/')) = '\0';
+	dir_ptr = opendir(path);
+	while ((dir_struct = readdir(dir_ptr)) != NULL)
+	{
+		if (!ft_strcmp(file_name, dir_struct->d_name))
+		{
+			ft_strdel(&file_name);
+			closedir(dir_ptr);
+			return (1);
+		}
+	}
+	ft_strdel(&file_name);
+	closedir(dir_ptr);
+	return (0);
+}
+
+static int		parse_cmd_if(t_cli *cli)
+{
+	if (!ft_strcmp(ACMD[0], "/usr/bin/env"))
+	{
+		BIF = 1;
+		BI = env;
+		return (0);
+	}
+	if (PTH[0] == '\0')
+		ft_memcpy(PTH, ACMD[0], ft_strlen(ACMD[0]));
+	else
+	{
+		ft_bzero(PTH, ft_strlen(PTH));
+		ft_memcpy(PTH, ACMD[0], ft_strlen(ACMD[0]));
+	}
+	if (find_executable_with_path(ACMD[0]))
+		return (0);
+	return (-1);
+}
+
+int				parse_cmd(t_cli *cli)
 {
 	if (!(ACMD = ft_strsplit(TMP, ' ')))
 		return (1);
@@ -152,16 +198,7 @@ int		parse_cmd(t_cli *cli)
 		return (0);
 	}
 	if (ft_strrchr(ACMD[0], '/'))
-	{
-		if (PTH[0] == '\0')
-			ft_memcpy(PTH, ACMD[0], ft_strlen(ACMD[0]));
-		else
-		{
-			ft_bzero(PTH, ft_strlen(PTH));
-			ft_memcpy(PTH, ACMD[0], ft_strlen(ACMD[0]));
-		}
-		return (0);
-	}
+		return (parse_cmd_if(cli));
 	else if (path_exist(cli))
 	{
 		if (find_executable(cli))
