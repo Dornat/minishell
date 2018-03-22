@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:15:38 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/21 14:13:18 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/22 15:26:58 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,10 @@ int				key_process(char *c, t_cli *cli)
 	}
 	else if (!ft_strcmp(c, CTRL_E))
 	{
-		printf("\nCRS.col: %d\n", CRS.col);
-		printf("CRS.w_cols: %d\n", CRS.w_cols);
 		printf("CMD: %s\n", cli->cmd);
-		printf("len of CMD: %d\n", (int)ft_strlen(cli->cmd));
 		printf("TMP: %s\n", TMP);
 		printf("BS: %d\n", BS);
-		printf("CRS.grows: %d\n", CRS.grows);
-		printf("BI: %u\n", BI);
+		printf("TMP[BS]: %c\n", TMP[BS]);
 	}
 	return (0);
 }

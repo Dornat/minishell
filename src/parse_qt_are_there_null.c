@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 11:34:24 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/18 17:23:58 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/22 17:49:02 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,14 @@ static int		parse_qt_are_there_null_elif(char *s, int i, t_cli *cli)
 	int		qt;
 
 	qt = i;
-	while (s[i])
+	i++;
+	while (1)
 	{
-		i++;
-		if (s[i] == '\"' && s[i - 1] != '\\')
+		if (s[i] == '\\')
+		{
+			i += 2;
+		}
+		else if (s[i] == '\"')
 			return (0);
 		else if (s[i] == '\0')
 		{
@@ -48,6 +52,8 @@ static int		parse_qt_are_there_null_elif(char *s, int i, t_cli *cli)
 			s[i] = '\n';
 			return (1);
 		}
+		else
+			i++;
 	}
 	return (0);
 }
