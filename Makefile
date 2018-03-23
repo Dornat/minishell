@@ -6,7 +6,7 @@
 #    By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/09 13:27:26 by dpolosuk          #+#    #+#              #
-#    Updated: 2018/03/21 17:05:45 by dpolosuk         ###   ########.fr        #
+#    Updated: 2018/03/23 12:29:04 by dpolosuk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC = bi_cd.c \
 		parse_qt_are_there_null.c \
 		parse_qt_bs.c \
 		refresh_cli.c \
+		split_semicol.c \
 
 INCLUDE = -I ./includes -I ./lft3.1/includes
 CFLAGS = -g -Wall -Wextra #-Werror

@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 16:08:10 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/21 17:34:30 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/22 18:44:53 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,10 @@ void				reset_crs(t_cli *cli);
 ** Parse cmd functions
 */
 
+char				**split_semicol(char *s);
 int					parse_cmd(t_cli *cli);
+int					parse_quote(char *s, int i);
+int					parse_dquote(char *s, int i);
 
 /*
 ** Execution of external programs

@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 11:34:24 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/22 17:49:02 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/22 17:53:35 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ static int		parse_qt_are_there_null_elif(char *s, int i, t_cli *cli)
 	while (1)
 	{
 		if (s[i] == '\\')
-		{
 			i += 2;
-		}
 		else if (s[i] == '\"')
 			return (0);
 		else if (s[i] == '\0')
