@@ -6,7 +6,7 @@
 #    By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/09 13:27:26 by dpolosuk          #+#    #+#              #
-#    Updated: 2018/03/23 12:29:04 by dpolosuk         ###   ########.fr        #
+#    Updated: 2018/03/23 12:50:15 by dpolosuk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC = bi_cd.c \
 		key_process.c \
 		main.c \
 		misc.c \
+		msh_split.c \
 		parse_cmd.c \
 		parse_qt_are_there_null.c \
 		parse_qt_bs.c \

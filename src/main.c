@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:13:45 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/22 18:19:36 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/23 12:45:50 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	free_double_ptr(char ***s)
 void	loops(int kp, char *c, t_cli *cli)
 {
 	int		no_such_file;
-	char	**cmds;
 	
 	while (1)
 	{
@@ -63,27 +62,31 @@ void	loops(int kp, char *c, t_cli *cli)
 			else if (kp == 1)
 			{
 				ft_putchar('\n');
-				cmds = split_semicol(TMP);
-				if ((no_such_file = parse_cmd(cli)))
+				CMDS = split_semicol(TMP);
+				while (CMDS[I])
 				{
-					if (no_such_file == -1)
-						ft_printf("msh: %s: No such file or directory\n", ACMD[0]);
-					else if (ACMD[0])
-						ft_printf("msh: %s: command not found\n", ACMD[0]);
-				}
-				else if (TMP[0])
-				{
-					if (BIF)
+					if ((no_such_file = parse_cmd(cli)))
 					{
-						exec_builtin(cli);
-						BIF = 0;
+						if (no_such_file == -1)
+							ft_printf("msh: %s: No such file or directory\n", ACMD[0]);
+						else if (ACMD[0])
+							ft_printf("msh: %s: command not found\n", ACMD[0]);
 					}
-					else
-						exec_prog(cli);
+					else if (TMP[0])
+					{
+						if (BIF)
+						{
+							exec_builtin(cli);
+							BIF = 0;
+						}
+						else
+							exec_prog(cli);
+					}
 				}
 				ft_bzero(CMD, ft_strlen(CMD));
 				ft_bzero(TMP, ft_strlen(TMP));
 				free_double_ptr(&ACMD);
+				I = I + 1;
 				break ;
 			}
 		}

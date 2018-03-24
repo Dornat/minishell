@@ -6,7 +6,7 @@
 /*   By: dpolosuk <hmarvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 15:58:07 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/21 12:54:59 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/23 12:40:16 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,8 @@ void	init_term_data(t_cli *cli)
 	cli->cmd = ft_strnew(CMD_LEN);
 	cli->tcmd = ft_strnew(CMD_LEN);
 	cli->bs = 0;
+	cli->cmds = NULL;
+	cli->cmds_i = 0;
 	cli->acmd = NULL;
 	cli->brk = 0;
 	cli->dqt = 0;

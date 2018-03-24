@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 11:54:24 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/22 11:50:14 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/23 12:43:56 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ static int		parse_cmd_if(t_cli *cli)
 
 int				parse_cmd(t_cli *cli)
 {
-	if (!(ACMD = ft_strsplit(TMP, ' ')))
+	if (!(ACMD = msh_split(CMDS[I], cli)))
 		return (1);
 	if (check_for_builtin(cli))
 	{

@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 16:08:10 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/22 18:44:53 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/23 12:48:18 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ typedef struct		s_cli
 	char			*cmd;
 	char			*tcmd;
 	unsigned int	bs;
+	char			**cmds;
+	int				cmds_i;
 	char			**acmd;
 	unsigned int	brk:1;
 	unsigned int	dqt:1;
@@ -129,6 +131,8 @@ typedef struct		s_cli
 # define CMD cli->cmd
 # define TMP cli->tcmd
 # define BS cli->bs
+# define CMDS cli->cmds
+# define I cli->cmds_i
 # define ACMD cli->acmd
 # define ENV cli->env
 # define EPTH cli->epth
@@ -166,6 +170,7 @@ void				reset_crs(t_cli *cli);
 */
 
 char				**split_semicol(char *s);
+char				**msh_split(char *s, t_cli *cli);
 int					parse_cmd(t_cli *cli);
 int					parse_quote(char *s, int i);
 int					parse_dquote(char *s, int i);
