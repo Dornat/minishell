@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:13:45 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/23 12:45:50 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/24 20:14:20 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	loops(int kp, char *c, t_cli *cli)
 			{
 				ft_putchar('\n');
 				CMDS = split_semicol(TMP);
+				I = 0;
 				while (CMDS[I])
 				{
 					if ((no_such_file = parse_cmd(cli)))
@@ -82,11 +83,12 @@ void	loops(int kp, char *c, t_cli *cli)
 						else
 							exec_prog(cli);
 					}
+					free_double_ptr(&ACMD);
+					I = I + 1;
 				}
 				ft_bzero(CMD, ft_strlen(CMD));
 				ft_bzero(TMP, ft_strlen(TMP));
-				free_double_ptr(&ACMD);
-				I = I + 1;
+				free_double_ptr(&CMDS);
 				break ;
 			}
 		}

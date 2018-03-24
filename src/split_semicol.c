@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/22 18:18:00 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/24 11:40:28 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/24 20:10:48 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ char			**split_semicol(char *s)
 	j = 0;
 	k = 0;
 	len = semicolarg_num(s, 0, 0);
+	if (len == 0)
+		len = 1;
 	if (!(res = (char**)malloc(sizeof(char*) * (len + 1))))
 		return (NULL);
 	while (i < len)

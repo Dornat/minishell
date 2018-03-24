@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 16:08:10 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/23 12:48:18 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/24 21:05:14 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ void				reset_crs(t_cli *cli);
 
 char				**split_semicol(char *s);
 char				**msh_split(char *s, t_cli *cli);
+int					msh_split_arg_num(char *s);
 int					parse_cmd(t_cli *cli);
 int					parse_quote(char *s, int i);
 int					parse_dquote(char *s, int i);

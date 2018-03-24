@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 15:16:03 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/21 17:24:36 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/24 20:32:10 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,25 +44,41 @@ char		*extract_env_name(char *env_field)
 	return (res);
 }
 
+/* t_list		*bi_find_env(t_list *env, char *arg) */
+/* { */
+/* 	t_list		*ptr; */
+/* 	char		*cmp; */
+
+/* 	ptr = env; */
+/* 	cmp = extract_env_name(arg); */
+/* 	if (!ptr || !cmp) */
+/* 		return (NULL); */
+/* 	while (ptr) */
+/* 	{ */
+/* 		if (!ft_strncmp(cmp, (char*)ptr->content, ft_strlen(cmp))) */
+/* 		{ */
+/* 			ft_strdel(&cmp); */
+/* 			return (ptr); */
+/* 		} */
+/* 		ptr = ptr->next; */
+/* 	} */
+/* 	ft_strdel(&cmp); */
+/* 	return (NULL); */
+/* } */
+
 t_list		*bi_find_env(t_list *env, char *arg)
 {
 	t_list		*ptr;
-	char		*cmp;
 
 	ptr = env;
-	cmp = extract_env_name(arg);
-	if (!ptr || !cmp)
+	if (!ptr || !arg)
 		return (NULL);
 	while (ptr)
 	{
-		if (!ft_strncmp(cmp, (char*)ptr->content, ft_strlen(cmp)))
-		{
-			ft_strdel(&cmp);
+		if (!ft_strncmp(arg, (char*)ptr->content, ft_strlen(arg)))
 			return (ptr);
-		}
 		ptr = ptr->next;
 	}
-	ft_strdel(&cmp);
 	return (NULL);
 }
 
