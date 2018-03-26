@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 12:47:00 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/25 12:58:51 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/26 12:37:30 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,47 +88,34 @@ void		msh_replace_var_in_str(char **s, t_cli *cli, int beg, int *end)
 	char	*env;
 	char	*tmp;
 	int		len;
-	int		tmpl;
 
 	tmp = NULL;
 	len = ft_strlen(*s);
 	beg++;
 	env = ft_strsub(*s, beg, envlen(*s + beg));
-	if (!(env_val = grep_envvalue(env, cli)))
+	if ((env_val = grep_envvalue(env, cli)) == NULL)
 	{
 		ft_memmove(*s + beg - 1, *s + beg + envlen(*s + beg), ft_strlen(*s + beg) + 1);
+		*end = *end - (ft_strlen(env) + 1);
 		ft_strdel(&env);
 		return ;
 	}
-	tmpl = len - ft_strlen(env_val);
-	if (envlen(*s + beg) + 1 < (int)ft_strlen(env_val))
-	{
-		tmp = *s;
-		if (ft_strlen(*s + beg) - envlen(*s + beg) == 0)
-			ft_bzero(*s + beg - 1, envlen(*s + beg));
-		else
-			ft_memmove(*s + beg - 1, *s + beg + envlen(*s + beg), ft_strlen(*s + beg) + 1);
-		*s = ft_strnew(ft_strlen(tmp) + ft_strlen(env_val));
-		ft_memcpy(*s, tmp, ft_strlen(tmp));
-		ft_memmove(*s + beg - 2 + ft_strlen(env_val), *s + beg - 2, ft_strlen(*s + beg) - 2);
-		ft_memcpy(*s + beg - 1, env_val, ft_strlen(env_val));
-		ft_strdel(&tmp);
-		*end = *end + ft_strlen(env_val) - ft_strlen(env) - 1;
-	}
+	tmp = *s;
+	if (ft_strlen(*s + beg) - envlen(*s + beg) == 0)
+		ft_bzero(*s + beg - 1, envlen(*s + beg));
 	else
-	{
-		if (ft_strlen(*s + beg) - envlen(*s + beg) == 0)
-			ft_bzero(*s + beg - 1, envlen(*s + beg));
-		else
-			ft_memmove(*s + beg - 1, *s + beg + envlen(*s + beg), ft_strlen(*s + beg) + 1);
-		while (--len > tmpl)
-			(*s)[len] = '\0';
-		ft_memmove(*s + beg + ft_strlen(env_val) - 1, *s + beg - 1, ft_strlen(*s + beg - 1));
-		ft_memcpy(*s + beg - 1, env_val, ft_strlen(env_val));
-		*end = *end - ((ft_strlen(env) + 1) - ft_strlen(env_val));
-	}
+		ft_memmove(*s + beg - 1, *s + beg + envlen(*s + beg), ft_strlen(*s + beg) + 1);
+	*s = ft_strnew(ft_strlen(tmp) + ft_strlen(env_val));
+	ft_strncpy(*s, tmp, beg - 1);
+	ft_strcat(*s, env_val);
+	ft_strcat(*s, tmp + beg - 1);
 	ft_strdel(&env);
 	ft_strdel(&env_val);
+	ft_strdel(&tmp);
+	if (envlen(*s + beg) + 1 < (int)ft_strlen(env_val))
+		*end = *end + ft_strlen(env_val) - ft_strlen(env) - 1;
+	else
+		*end = *end - ((ft_strlen(env) + 1) - ft_strlen(env_val));
 }
 
 void		msh_strparse_in_dquote(char **s, t_cli *cli, int beg, int *end)

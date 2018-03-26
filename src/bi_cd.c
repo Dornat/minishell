@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 17:01:50 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/25 14:05:13 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/26 12:59:36 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void			set_pwd(t_list *env, t_list **ppwd, char *buf)
 	t_list		*new;
 
 	new = ft_lstnew("PWD=", PATH_LEN);
-	ft_memcpy(new->content + 4, (const void*)buf, ft_strlen(buf));
+	ft_strcat(new->content, buf);
 	ft_lstadd_atend(&env, new);
 	*ppwd = bi_find_env(env, "PWD=");
 }
