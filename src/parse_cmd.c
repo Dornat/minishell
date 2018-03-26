@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 11:54:24 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/26 14:52:05 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/26 15:06:58 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,22 @@ void	bi_env(t_cli *cli)
 	tcsetattr(0, TCSAFLUSH, &g_raw);
 }
 
-void	(*bi_ptr[5]) (t_cli *cli) =
+void	bi_echo(t_cli *cli)
 {
-	bi_exit, bi_cd, bi_env, bi_setenv, bi_unsetenv
+	int		i;
+
+	i = 1;
+	while (ACMD[i])
+	{
+		ft_putstr(ACMD[i]);
+		i++;
+	}
+	ft_putchar('\n');
+}
+
+void	(*bi_ptr[6]) (t_cli *cli) =
+{
+	bi_exit, bi_cd, bi_env, bi_setenv, bi_unsetenv, bi_echo
 };
 
 void		exec_builtin(t_cli *cli)
@@ -139,6 +152,8 @@ static int		check_for_builtin(t_cli *cli)
 		BI = setnv;
 	else if (!ft_strcmp(ACMD[0], "unsetenv"))
 		BI = unsetnv;
+	else if (!ft_strcmp(ACMD[0], "echo"))
+		BI = ech;
 	else
 		return (0);
 	return (1);

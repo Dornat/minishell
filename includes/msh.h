@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 16:08:10 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/24 21:05:14 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/26 15:04:04 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ typedef struct		s_cli
 	char			*pth;
 	enum			e_bi
 	{
-		ext, cd, env, setnv, unsetnv
+		ext, cd, env, setnv, unsetnv, ech
 	}				t_bi;
 	unsigned int	bi_flag:1;
 }					t_cli;

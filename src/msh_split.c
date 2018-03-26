@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 12:47:00 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/26 12:37:30 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/26 15:13:43 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void		msh_strparse_in_dquote(char **s, t_cli *cli, int beg, int *end)
 	beg++;
 	while (beg < *end)
 	{
-		if ((*s)[beg] != '\\' || (*s)[beg] != '$')
+		if ((*s)[beg] != '\\' && (*s)[beg] != '$')
 			beg++;
 		if ((*s)[beg] == '\\')
 		{
