@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 15:16:03 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/26 14:45:27 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/26 15:21:00 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ void		bi_setenv(t_cli *cli)
 	t_list		*ptr;
 
 	ptr = NULL;
+	if (!ACMD[1])
+		return ;
 	if ((ptr = bi_find_env_with_extraction(ENV, ACMD[1])))
 	{
 		ft_memdel(&ptr->content);

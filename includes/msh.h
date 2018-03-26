@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 16:08:10 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/26 15:04:04 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/26 15:49:48 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,13 @@
 # define RIGHT_ARROW	"\e[C"
 # define CTRL_A			"\x01"
 # define CTRL_B			"\x02"
+# define CTRL_C			"\x03"
 # define CTRL_D			"\x04"
 # define CTRL_E			"\x05"
 # define CTRL_F			"\x06"
 # define DEL_KEY		"\x7f"
 # define ENTER_KEY		"\n"
+# define TAB_KEY		"\t"
 
 /*
 ** Struct for saving cursor position and terminal resolution

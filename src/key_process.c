@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:15:38 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/22 15:26:58 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/26 15:50:57 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,7 @@ int				key_process(char *c, t_cli *cli)
 		ft_putstr("exit\n");
 		bi_exit(cli);
 	}
-	else if (!ft_strcmp(c, CTRL_E))
-	{
-		printf("CMD: %s\n", cli->cmd);
-		printf("TMP: %s\n", TMP);
-		printf("BS: %d\n", BS);
-		printf("TMP[BS]: %c\n", TMP[BS]);
-	}
+	else if (!ft_strcmp(c, TAB_KEY))
+		;
 	return (0);
 }

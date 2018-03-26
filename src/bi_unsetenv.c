@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 17:40:36 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/21 15:59:58 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/26 15:19:43 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_list		*bi_find_unsetenv(t_cli *cli)
 
 	ptr = ENV;
 	i = 0;
-	if (!ptr)
+	if (!ptr || !ACMD[1])
 		return (NULL);
 	while (ptr)
 	{
