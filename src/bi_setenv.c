@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 15:16:03 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/24 21:10:02 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/26 14:45:27 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,9 @@ void		bi_setenv(t_cli *cli)
 		ptr->content_size = ft_strlen(ACMD[1]);
 		ptr->content = (void*)ft_strnew(ptr->content_size);
 		ft_memcpy(ptr->content, (const void*)ACMD[1], ptr->content_size);
+		if (EPTH)
+			ft_strdel(&EPTH);
+		EPTH = ft_strdup((const char*)ptr->content);
 	}
 	else
 	{

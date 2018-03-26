@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 11:54:24 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/26 10:37:02 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/26 14:52:05 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,27 +46,13 @@ static int		find_executable_with_path(char *pth)
 	}
 	else
 		return (-2);
+	return (-2);
 }
 
 int		append_pth_of_exec(t_cli *cli)
 {
-	/* DIR					*dir_ptr; */
-	/* struct dirent		*dir_struct; */
-
 	if (!ACMD[0])
 		return (0);
-	/* dir_ptr = opendir(PTH); */
-	/* while ((dir_struct = readdir(dir_ptr)) != NULL) */
-	/* { */
-	/* 	if (!ft_strcmp(ACMD[0], dir_struct->d_name)) */
-	/* 	{ */
-	/* 		ft_strcat(PTH, "/"); */
-	/* 		ft_strcat(PTH, ACMD[0]); */
-	/* 		closedir(dir_ptr); */
-	/* 		return (1); */
-	/* 	} */
-	/* } */
-	/* closedir(dir_ptr); */
 	ft_strcat(PTH, "/");
 	ft_strcat(PTH, ACMD[0]);
 	return (find_executable_with_path(PTH));
@@ -158,47 +144,6 @@ static int		check_for_builtin(t_cli *cli)
 	return (1);
 }
 
-/* static int		find_executable_with_path(char *pth) */
-/* { */
-/* 	DIR				*dir_ptr; */
-/* 	struct dirent	*dir_struct; */
-/* 	char			path[PATH_LEN]; */
-/* 	char			*gcwd; */
-/* 	char			*file_name; */
-
-/* 	file_name = ft_strdup(ft_strrchr(pth, '/') + 1); */
-/* 	printf("file_name: %s\n", file_name); */
-/* 	ft_bzero(path, PATH_LEN); */
-/* 	gcwd = NULL; */
-/* 	gcwd = getcwd(gcwd, 0); */
-/* 	printf("gcwd: %s\n", gcwd); */
-/* 	ft_memcpy(path, gcwd, ft_strlen(gcwd)); */
-/* 	ft_strdel(&gcwd); */
-/* 	ft_strcat(path, "/"); */
-/* 	ft_memcpy(path + ft_strlen(path), pth, ft_strlen(pth)); */
-/* 	*(ft_strrchr(path, '/')) = '\0'; */
-/* 	printf("path: %s\n", path); */
-/* 	dir_ptr = opendir(path); */
-/* 	while ((dir_struct = readdir(dir_ptr)) != NULL) */
-/* 	{ */
-/* 		printf("dir_struct->d_name: %s\n", dir_struct->d_name); */
-/* 		if (!ft_strcmp(file_name, dir_struct->d_name)) */
-/* 		{ */
-/* 			printf("!ft_strcmp(%s, %s)\n", file_name, dir_struct->d_name); */
-/* 			ft_strdel(&file_name); */
-/* 			closedir(dir_ptr); */
-/* 			if (access(pth, X_OK) == -1) */
-/* 				return (0); */
-/* 			printf("return (1);\n"); */
-/* 			return (1); */
-/* 		} */
-/* 	} */
-/* 	ft_strdel(&file_name); */
-/* 	closedir(dir_ptr); */
-/* 	printf("return (0);\n"); */
-/* 	return (0); */
-/* } */
-
 static int		parse_cmd_if(t_cli *cli)
 {
 	if (!ft_strcmp(ACMD[0], "/usr/bin/env"))
@@ -219,6 +164,9 @@ static int		parse_cmd_if(t_cli *cli)
 
 int				parse_cmd(t_cli *cli)
 {
+	int		ret;
+	
+	ret = 0;
 	if (!(ACMD = msh_split(CMDS[I], cli)))
 		return (1);
 	if (check_for_builtin(cli))
@@ -230,8 +178,10 @@ int				parse_cmd(t_cli *cli)
 		return (parse_cmd_if(cli));
 	else if (path_exist(cli))
 	{
-		if (find_executable(cli) == 0)
+		if ((ret = find_executable(cli)) == 0)
 			return (0);
 	}
+	if (ret == -1)
+		return (ret);
 	return (1);
 }
