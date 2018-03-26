@@ -6,7 +6,7 @@
 /*   By: dpolosuk <hmarvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 15:58:07 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/23 12:40:16 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/26 16:26:30 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,21 @@ int		lcins(char c, char *s)
 	return (0);
 }
 
+char	**fill_bi_names(void)
+{
+	char	**bis;
+
+	bis = (char**)malloc(sizeof(char*) * 7);
+	bis[0] = ft_strdup("exit");
+	bis[1] = ft_strdup("cd");
+	bis[2] = ft_strdup("env");
+	bis[3] = ft_strdup("setenv");
+	bis[4] = ft_strdup("unsetenv");
+	bis[5] = ft_strdup("echo");
+	bis[6] = NULL;
+	return (bis);
+}
+
 void	init_term_data(t_cli *cli)
 {
 	extern char		g_prompt[PATH_LEN];
@@ -160,6 +175,7 @@ void	init_term_data(t_cli *cli)
 	cli->epth = NULL;
 	cli->pth = ft_strnew(PATH_LEN);
 	cli->bi_flag = 0;
+	cli->bis = fill_bi_names();
 	init_cpos(cli);
 }
 

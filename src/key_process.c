@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:15:38 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/26 15:50:57 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/26 19:33:40 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,62 @@ static int		crs_chk_del(char *c, t_cli *cli)
 	return (0);	
 }
 
+static void		find_exec_in_pth(t_cli *cli)
+{
+	char				**d;
+	int					i;
+	DIR					*dp;
+	struct dirent		*ds;
+
+	if (path_exist(cli) == 0)
+		return ;
+	if (!(d = ft_strsplit(EPTH + 5, ':')))
+		return ;
+	i = 0;
+	while (d[i])
+	{
+		if ((dp = opendir(d[i])) == NULL)
+			return ;
+		while ((ds = readdir(dp)) != NULL)
+		{
+			if (!ft_strncmp(CMD, ds->d_name, ft_strlen(CMD)))
+			{
+				ft_bzero(CMD, ft_strlen(CMD));
+				ft_strcat(CMD, ds->d_name);
+				CRS.col = ft_strlen(PRT.p) + ft_strlen(CMD);
+				refresh_cli(cli);
+				closedir(dp);
+				free_double_ptr(&d);
+				return ;
+			}
+		}
+		closedir(dp);
+		i++;
+	}
+}
+
+void			basic_tab_compl(t_cli *cli)
+{
+	int			i;
+
+	i = 0;
+	if (CMD[0] == '\0')
+		return ;
+	while (BIS[i])
+	{
+		if (!ft_strncmp(CMD, BIS[i], ft_strlen(CMD)))
+		{
+			ft_bzero(CMD, ft_strlen(CMD));
+			ft_strcat(CMD, BIS[i]);
+			CRS.col = ft_strlen(PRT.p) + ft_strlen(CMD);
+			refresh_cli(cli);
+			return ;
+		}
+		i++;
+	}
+	find_exec_in_pth(cli);
+}
+
 int				key_process(char *c, t_cli *cli)
 {
 	if (!ft_isnotprint(c[0]))
@@ -93,6 +149,10 @@ int				key_process(char *c, t_cli *cli)
 		bi_exit(cli);
 	}
 	else if (!ft_strcmp(c, TAB_KEY))
-		;
+		basic_tab_compl(cli);
+	else if (!ft_strcmp(c, CTRL_E))
+	{
+		printf("CMD: %s\n", CMD);
+	}
 	return (0);
 }

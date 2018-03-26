@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 11:54:24 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/26 15:06:58 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/26 16:29:35 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void	bi_exit(t_cli *cli)
 	if (EPTH)
 		ft_strdel(&EPTH);
 	free_double_ptr(&ACMD);
+	free_double_ptr(&BIS);
 	disable_raw_mode();
 	exit(0);
 }

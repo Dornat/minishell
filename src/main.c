@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:13:45 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/26 15:43:59 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/26 19:16:41 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,5 @@ int		main(void)
 	kp = 0;
 	g_pid = 0;
 	signal(SIGINT, signal_handler);
-	signal(SIGTSTP, SIG_IGN);
 	loops(kp, c, &cli);
 }

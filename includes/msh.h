@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 16:08:10 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/26 15:49:48 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/26 19:32:13 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ typedef struct		s_cli
 		ext, cd, env, setnv, unsetnv, ech
 	}				t_bi;
 	unsigned int	bi_flag:1;
+	char			**bis;
 }					t_cli;
 
 /*
@@ -141,6 +142,7 @@ typedef struct		s_cli
 # define PTH cli->pth
 # define BI cli->t_bi
 # define BIF cli->bi_flag
+# define BIS cli->bis
 
 /*
 ** Main functions
@@ -183,6 +185,7 @@ int					parse_dquote(char *s, int i);
 */
 
 void				exec_prog(t_cli *cli);
+int					path_exist(t_cli *cli);
 
 /*
 ** Execution of builtins
