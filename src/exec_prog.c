@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 16:10:44 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/21 12:54:27 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/26 10:32:36 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	exec_prog(t_cli *cli)
 	extern char				**environ;
 
 	if ((g_pid = fork()) < 0)
-		ft_putendl_fd("Fork returned error!!!", 2);
+		ft_putendl_fd("Fork returned error!!!???", 2);
 	else if (!g_pid)
 	{
 		disable_raw_mode();

@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 17:01:50 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/24 20:24:23 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/25 14:05:13 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,15 @@ static void			swap_pwd_oldpwd(t_list *env)
 
 static void			bi_change_dir(char *path, t_cli *cli)
 {
-	if (chdir(path) < 0)
+	if (access(path, F_OK) == -1)
 		ft_printf("msh: cd: %s: No such file or directory\n", path);
+	else if (access(path, X_OK) == -1)
+		ft_printf("msh: cd: %s: Permission denied\n", path);
 	else
+	{
+		chdir(path);
 		swap_pwd_oldpwd(ENV);
+	}
 }
 
 static void			go_back(t_cli *cli)

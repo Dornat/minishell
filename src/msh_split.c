@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 12:47:00 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/24 21:03:37 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/25 12:58:51 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,11 @@ char		*grep_envvalue(char *env_name, t_cli *cli)
 	t_list		*ptr;
 
 	tmp = ft_strjoin(env_name, "=");
-	ptr = bi_find_env(ENV, tmp);
+	if (!(ptr = bi_find_env(ENV, tmp)))
+	{
+		ft_strdel(&tmp);
+		return (NULL);
+	}
 	res = extract_value_from_env((char*)ptr->content);
 	ft_strdel(&tmp);
 	return (res);
@@ -93,29 +97,38 @@ void		msh_replace_var_in_str(char **s, t_cli *cli, int beg, int *end)
 	if (!(env_val = grep_envvalue(env, cli)))
 	{
 		ft_memmove(*s + beg - 1, *s + beg + envlen(*s + beg), ft_strlen(*s + beg) + 1);
+		ft_strdel(&env);
 		return ;
 	}
 	tmpl = len - ft_strlen(env_val);
 	if (envlen(*s + beg) + 1 < (int)ft_strlen(env_val))
 	{
 		tmp = *s;
-		ft_memmove(*s + beg - 1, *s + beg + envlen(*s + beg), ft_strlen(*s + beg) + 1);
+		if (ft_strlen(*s + beg) - envlen(*s + beg) == 0)
+			ft_bzero(*s + beg - 1, envlen(*s + beg));
+		else
+			ft_memmove(*s + beg - 1, *s + beg + envlen(*s + beg), ft_strlen(*s + beg) + 1);
 		*s = ft_strnew(ft_strlen(tmp) + ft_strlen(env_val));
 		ft_memcpy(*s, tmp, ft_strlen(tmp));
-		ft_memmove(*s + beg - 2 + ft_strlen(env_val), *s + beg - 2, ft_strlen(*s + beg - 2));
+		ft_memmove(*s + beg - 2 + ft_strlen(env_val), *s + beg - 2, ft_strlen(*s + beg) - 2);
 		ft_memcpy(*s + beg - 1, env_val, ft_strlen(env_val));
 		ft_strdel(&tmp);
 		*end = *end + ft_strlen(env_val) - ft_strlen(env) - 1;
 	}
 	else
 	{
-		ft_memmove(*s + beg - 1, *s + beg + envlen(*s + beg), ft_strlen(*s + beg) + 1);
+		if (ft_strlen(*s + beg) - envlen(*s + beg) == 0)
+			ft_bzero(*s + beg - 1, envlen(*s + beg));
+		else
+			ft_memmove(*s + beg - 1, *s + beg + envlen(*s + beg), ft_strlen(*s + beg) + 1);
 		while (--len > tmpl)
 			(*s)[len] = '\0';
 		ft_memmove(*s + beg + ft_strlen(env_val) - 1, *s + beg - 1, ft_strlen(*s + beg - 1));
 		ft_memcpy(*s + beg - 1, env_val, ft_strlen(env_val));
 		*end = *end - ((ft_strlen(env) + 1) - ft_strlen(env_val));
 	}
+	ft_strdel(&env);
+	ft_strdel(&env_val);
 }
 
 void		msh_strparse_in_dquote(char **s, t_cli *cli, int beg, int *end)
@@ -160,6 +173,7 @@ void		msh_replace_tilde_in_str(char **s, t_cli *cli, int beg)
 	ft_memcpy(*s, tmp, ft_strlen(tmp));
 	ft_memmove(*s + beg + len, *s + beg, ft_strlen(*s + beg));
 	ft_memcpy(*s + beg, home, len);
+	ft_strdel(&home);
 	ft_strdel(&tmp);
 }
 

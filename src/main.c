@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:13:45 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/24 20:14:20 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/26 10:37:23 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	loops(int kp, char *c, t_cli *cli)
 		{
 			ft_bzero(c, 5);
 			read(0, c, 5);
+			no_such_file = -1;
 			if ((kp = key_process(c, cli)) == -1)
 			{
 				ft_bzero(CMD, ft_strlen(CMD));
@@ -69,6 +70,8 @@ void	loops(int kp, char *c, t_cli *cli)
 					if ((no_such_file = parse_cmd(cli)))
 					{
 						if (no_such_file == -1)
+							ft_printf("msh: %s: Permission denied\n", ACMD[0]);
+						else if (no_such_file == -2)
 							ft_printf("msh: %s: No such file or directory\n", ACMD[0]);
 						else if (ACMD[0])
 							ft_printf("msh: %s: command not found\n", ACMD[0]);
