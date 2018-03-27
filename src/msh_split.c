@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 12:47:00 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/27 17:48:57 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/27 18:29:30 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,56 +164,56 @@ void		msh_replace_tilde_in_str(char **s, t_cli *cli, int beg)
 	ft_strdel(&tmp);
 }
 
-char		*msh_strparse(char *s, t_cli *cli)
-{
-	int		i;
-	int		beg;
-	int		end;
+/* char		*msh_strparse(char *s, t_cli *cli) */
+/* { */
+/* 	int		i; */
+/* 	int		beg; */
+/* 	int		end; */
 
-	i = 0;
-	beg = 0;
-	end = 0;
-	while (s[i])
-	{
-		if (s[i] == '\'')
-		{
-			beg = i;
-			end = parse_quote(s, i) - 1;
-			ft_memmove(s + beg, s + beg + 1, ft_strlen(s));
-			end--;
-			ft_memmove(s + end, s + end + 1, ft_strlen(s));
-			i = end;
-		}
-		else if (s[i] == '\"')
-		{
-			beg = i;
-			end = parse_dquote(s, i) - 1;
-			msh_strparse_in_dquote(&s, cli, beg, &end);
-			ft_memmove(s + beg, s + beg + 1, ft_strlen(s));
-			end--;
-			ft_memmove(s + end, s + end + 1, ft_strlen(s));
-			i = end;
-		}
-		else if (s[i] == '\\')
-		{
-			ft_memmove(s + i, s + i + 1, ft_strlen(s + i));
-			i++;
-		}
-		else if (s[i] == '$')
-		{
-			beg = i;
-			msh_replace_var_in_str(&s, cli, beg, &end);
-		}
-		else if (s[i] == '~')
-		{
-			beg = i;
-			msh_replace_tilde_in_str(&s, cli, beg);
-		}
-		else
-			i++;
-	}
-	return (s);
-}
+/* 	i = 0; */
+/* 	beg = 0; */
+/* 	end = 0; */
+/* 	while (s[i]) */
+/* 	{ */
+/* 		if (s[i] == '\'') */
+/* 		{ */
+/* 			beg = i; */
+/* 			end = parse_quote(s, i) - 1; */
+/* 			ft_memmove(s + beg, s + beg + 1, ft_strlen(s)); */
+/* 			end--; */
+/* 			ft_memmove(s + end, s + end + 1, ft_strlen(s)); */
+/* 			i = end; */
+/* 		} */
+/* 		else if (s[i] == '\"') */
+/* 		{ */
+/* 			beg = i; */
+/* 			end = parse_dquote(s, i) - 1; */
+/* 			msh_strparse_in_dquote(&s, cli, beg, &end); */
+/* 			ft_memmove(s + beg, s + beg + 1, ft_strlen(s)); */
+/* 			end--; */
+/* 			ft_memmove(s + end, s + end + 1, ft_strlen(s)); */
+/* 			i = end; */
+/* 		} */
+/* 		else if (s[i] == '\\') */
+/* 		{ */
+/* 			ft_memmove(s + i, s + i + 1, ft_strlen(s + i)); */
+/* 			i++; */
+/* 		} */
+/* 		else if (s[i] == '$') */
+/* 		{ */
+/* 			beg = i; */
+/* 			msh_replace_var_in_str(&s, cli, beg, &end); */
+/* 		} */
+/* 		else if (s[i] == '~') */
+/* 		{ */
+/* 			beg = i; */
+/* 			msh_replace_tilde_in_str(&s, cli, beg); */
+/* 		} */
+/* 		else */
+/* 			i++; */
+/* 	} */
+/* 	return (s); */
+/* } */
 
 char		*msh_strsplit(char *s, t_cli *cli, int *beg, int *end)
 {

@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 16:08:10 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/27 13:57:14 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/27 18:30:43 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ typedef struct		s_cli
 	}				t_bi;
 	unsigned int	bi_flag:1;
 	char			**bis;
-	char			*home_value;
 }					t_cli;
 
 /*
@@ -144,7 +143,6 @@ typedef struct		s_cli
 # define BI cli->t_bi
 # define BIF cli->bi_flag
 # define BIS cli->bis
-# define HOME cli->home_value
 
 /*
 ** Main functions
@@ -178,6 +176,10 @@ void				basic_tab_compl(t_cli *cli);
 
 char				**split_semicol(char *s);
 char				**msh_split(char *s, t_cli *cli);
+void				msh_strparse_in_dquote(char **s, t_cli *cli, int beg, int *end);
+void				msh_replace_var_in_str(char **s, t_cli *cli, int beg, int *end);
+void				msh_replace_tilde_in_str(char **s, t_cli *cli, int beg);
+char				*msh_strparse(char *s, t_cli *cli);
 int					msh_split_arg_num(char *s);
 int					parse_cmd(t_cli *cli);
 int					parse_quote(char *s, int i);
@@ -212,5 +214,16 @@ int					ft_putcchar(int c);
 int					peekb(char c, char *s);
 int					lcins(char c, char *s);
 void				free_double_ptr(char ***s);
+
+/*
+** struct for norminette
+*/
+
+typedef struct		s_norm
+{
+	int		i;
+	int		beg;
+	int		end;
+}					t_norm;
 
 #endif

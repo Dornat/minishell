@@ -6,20 +6,11 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 15:39:06 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/27 15:41:47 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/27 18:33:01 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <msh.h>
-
-static int		append_pth_of_exec(t_cli *cli)
-{
-	if (!ACMD[0])
-		return (0);
-	ft_strcat(PTH, "/");
-	ft_strcat(PTH, ACMD[0]);
-	return (find_executable_with_path(PTH));
-}
 
 int				find_executable_with_path(char *pth)
 {
@@ -33,6 +24,15 @@ int				find_executable_with_path(char *pth)
 	else
 		return (-2);
 	return (-2);
+}
+
+static int		append_pth_of_exec(t_cli *cli)
+{
+	if (!ACMD[0])
+		return (0);
+	ft_strcat(PTH, "/");
+	ft_strcat(PTH, ACMD[0]);
+	return (find_executable_with_path(PTH));
 }
 
 int				find_executable(t_cli *cli)

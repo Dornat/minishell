@@ -6,7 +6,7 @@
 #    By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/09 13:27:26 by dpolosuk          #+#    #+#              #
-#    Updated: 2018/03/27 12:46:15 by dpolosuk         ###   ########.fr        #
+#    Updated: 2018/03/27 18:33:08 by dpolosuk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRC = basic_tab_completion.c \
 		bi_cd.c \
 		bi_setenv.c \
 		bi_unsetenv.c \
+		crs_move_right_left.c \
 		del_chr_from_cmdl.c \
 		ent_key_processing.c \
 		exec_prog.c \
@@ -25,11 +26,13 @@ SRC = basic_tab_completion.c \
 		misc.c \
 		msh_split.c \
 		msh_split_arg_num.c \
+		msh_strparse.c \
 		parse_cmd.c \
 		parse_qt_are_there_null.c \
 		parse_qt_bs.c \
 		refresh_cli.c \
 		split_semicol.c \
+		swap_pwd_oldpwd.c \
 
 INCLUDE = -I ./includes -I ./lft3.1/includes
 CFLAGS = -g -Wall -Wextra #-Werror
