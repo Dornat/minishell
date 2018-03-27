@@ -6,13 +6,14 @@
 #    By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/09 13:27:26 by dpolosuk          #+#    #+#              #
-#    Updated: 2018/03/24 13:23:18 by dpolosuk         ###   ########.fr        #
+#    Updated: 2018/03/27 12:46:15 by dpolosuk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC = bi_cd.c \
+SRC = basic_tab_completion.c \
+		bi_cd.c \
 		bi_setenv.c \
 		bi_unsetenv.c \
 		del_chr_from_cmdl.c \

@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/25 15:23:51 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/02/19 17:34:05 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/27 14:15:40 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int					ft_isdigit(int c);
 int					ft_isalnum(int c);
 int					ft_isascii(int c);
 int					ft_isprint(int c);
+int					ft_isnotprint(int c);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
 void				*ft_memset(void *b, int c, size_t len);
@@ -72,6 +73,7 @@ char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
 char				*ft_itoa(int n);
 void				ft_putchar(char c);
+int					ft_putcchar(int c);
 void				ft_putstr(char const *s);
 void				ft_putendl(char const *s);
 void				ft_putnbr(int n);
@@ -82,6 +84,8 @@ void				ft_putnbr_fd(int n, int fd);
 t_list				*ft_lstnew(void const *content, size_t content_size);
 void				ft_lstdelone(t_list **alst, void (*del)(void*, size_t));
 void				ft_lstdel(t_list **alst, void (*del)(void*, size_t));
+void				ft_lstdel_first_node(t_list **alst);
+void				ft_lstdel_last_node(t_list **alst);
 void				ft_lstdelfunc(void *content, size_t content_size);
 void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstadd_atend(t_list **alst, t_list *new);

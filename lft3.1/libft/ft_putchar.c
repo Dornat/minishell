@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/05 15:19:27 by dpolosuk          #+#    #+#             */
-/*   Updated: 2017/12/09 12:25:28 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/27 14:15:25 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,4 +15,10 @@
 void	ft_putchar(char c)
 {
 	write(1, &c, 1);
+}
+
+int		ft_putcchar(int c)
+{
+	write(1, &c, 1);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 16:08:10 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/27 11:06:50 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/27 13:57:14 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ typedef struct		s_cli
 	}				t_bi;
 	unsigned int	bi_flag:1;
 	char			**bis;
+	char			*home_value;
 }					t_cli;
 
 /*
@@ -143,6 +144,7 @@ typedef struct		s_cli
 # define BI cli->t_bi
 # define BIF cli->bi_flag
 # define BIS cli->bis
+# define HOME cli->home_value
 
 /*
 ** Main functions
@@ -168,6 +170,7 @@ int					parse_qt_are_there_null(char *s, int i, t_cli *cli);
 
 void				refresh_cli(t_cli *cli);
 void				reset_crs(t_cli *cli);
+void				basic_tab_compl(t_cli *cli);
 
 /*
 ** Parse cmd functions
@@ -198,7 +201,7 @@ t_list				*bi_find_env(t_list *env, char *arg);
 void				bi_unsetenv(t_cli *cli);
 void				bi_cd(t_cli *cli);
 char				*grep_envvalue(char *env_name, t_cli *cli);
-char				*init_prompt(t_cli *cli);
+void				init_prompt(t_cli *cli);
 
 /*
 ** Misc functions

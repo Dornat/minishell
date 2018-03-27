@@ -6,7 +6,7 @@
 /*   By: dpolosuk <hmarvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 15:58:07 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/27 11:17:04 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/27 14:15:28 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,9 @@ void	enable_raw_mode(void)
 	tcgetattr(0, &g_raw);
 	g_orig_termios = g_raw;
 	g_raw.c_lflag &= ~(ICANON);
-	//raw.c_lflag &= ~(ISIG);
 	g_raw.c_lflag &= ~(ECHO);
-	//raw.c_oflag &= ~(OPOST);
-	//g_raw.c_cc[VTIME] = 0;
 	g_raw.c_cc[VMIN] = 1;
 	tcsetattr(0, TCSAFLUSH, &g_raw);
-	//tcsetattr(0, TCSANOW, &raw);
-}
-
-int		ft_putcchar(int c)
-{
-	write(1, &c, 1);
-	return (1);
-}
-
-int		ft_isnotprint(int c)
-{
-	if ((c >= 0 && c <= 31) || c == 127)
-		return (1);
-	else
-		return (0);
 }
 
 char	*find_term_type()
@@ -148,37 +130,31 @@ char	**fill_bi_names(void)
 	return (bis);
 }
 
-char	*init_prompt(t_cli *cli)
+void	init_prompt(t_cli *cli)
 {
-	char		*prt;
 	char		*buf;
 	char		*home;
-	char		cyn[10];
-	char		res[10];
 
 	buf = NULL;
-	prt = NULL;
-	if (PRT.p != NULL)
-		ft_strdel(&PRT.p);
-	prt = ft_strnew(PATH_LEN);
+	ft_bzero(PRT.p, ft_strlen(PRT.p));
 	home = grep_envvalue("HOME", cli);
-	ft_strcpy(cyn, "\x1B[36m");
-	ft_strcpy(res, "\x1B[0m");
 	buf = getcwd(buf, PATH_LEN);
-	if (!ft_strncmp(home, buf, ft_strlen(home)))
+	ft_strcat(PRT.p, "\x1B[36m[");
+	if (home != NULL)
 	{
-		ft_memmove(buf + 1, buf + ft_strlen(home), ft_strlen(home) - 1);
-		buf[0] = '~';
+		if (!ft_strncmp(home, buf, ft_strlen(home)))
+		{
+			ft_strcat(PRT.p, "~");
+			ft_strcat(PRT.p, buf + ft_strlen(home));
+		}
+		else
+			ft_strcat(PRT.p, buf);
 	}
-	ft_strcat(prt, cyn);
-	ft_strcat(prt, "[");
-	ft_strcat(prt, buf);
-	ft_strcat(prt, "]");
-	ft_strcat(prt, res);
-	ft_strcat(prt, " $> ");
+	else
+		ft_strcat(PRT.p, buf);
+	ft_strcat(PRT.p, "]\x1B[0m $> ");
 	ft_strdel(&buf);
 	ft_strdel(&home);
-	return (prt);
 }
 
 void	init_term_data(t_cli *cli)
@@ -192,8 +168,8 @@ void	init_term_data(t_cli *cli)
 	ft_strdel(&termtype);
 	enable_raw_mode();
 	cli->env = copy_env();
-	cli->prt.p = NULL;
-	cli->prt.p = init_prompt(cli);
+	PRT.p = ft_strnew(PATH_LEN);
+	init_prompt(cli);
 	ft_bzero(g_prompt, PATH_LEN);
 	ft_memcpy(g_prompt, PRT.p, ft_strlen(PRT.p));
 	cli->prt.tp = NULL;

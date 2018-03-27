@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 16:48:15 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/10 17:31:30 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/27 11:56:39 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void		del_global_rows_update(t_cli *cli)
 	}
 }
 
-void	del_chr_from_cmdl(t_cli *cli)
+void			del_chr_from_cmdl(t_cli *cli)
 {
 	int		mid_flag;
 

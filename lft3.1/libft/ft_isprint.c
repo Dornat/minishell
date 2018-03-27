@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/28 13:36:21 by dpolosuk          #+#    #+#             */
-/*   Updated: 2017/10/28 14:28:46 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/27 14:20:01 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,4 +15,12 @@ int		ft_isprint(int c)
 	if (c >= 32 && c <= 126)
 		return (1);
 	return (0);
+}
+
+int		ft_isnotprint(int c)
+{
+	if ((c >= 0 && c <= 31) || c == 127)
+		return (1);
+	else
+		return (0);
 }

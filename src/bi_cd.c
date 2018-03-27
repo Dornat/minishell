@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 17:01:50 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/27 11:19:08 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/27 12:24:47 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,15 @@ static void			set_pwd(t_list *env, t_list **ppwd, char *buf)
 	*ppwd = bi_find_env(env, "PWD=");
 }
 
+static void			swap_pwd_oldpwd_if2(t_list *env, t_list **pold)
+{
+	t_list		*new;
+	
+	new = ft_lstnew("OLDPWD=", 7);
+	ft_lstadd_atend(&env, new);
+	*pold = bi_find_env(env, "OLDPWD=");
+}
+
 static void			swap_pwd_oldpwd(t_list *env)
 {
 	t_list		*ppwd;
@@ -44,11 +53,7 @@ static void			swap_pwd_oldpwd(t_list *env)
 	if (!(ppwd = bi_find_env(env, "PWD=")))
 		set_pwd(env, &ppwd, buf);
 	if (!(pold = bi_find_env(env, "OLDPWD=")))
-	{
-		new = ft_lstnew("OLDPWD=", 7);
-		ft_lstadd_atend(&env, new);
-		pold = bi_find_env(env, "OLDPWD=");
-	}
+		swap_pwd_oldpwd_if2(env, &pold);
 	ft_memdel(&pold->content);
 	pold->content_size = PATH_LEN;
 	pold->content = (void*)ft_strnew(pold->content_size);
