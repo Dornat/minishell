@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 12:47:00 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/27 12:57:08 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/27 17:48:57 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,13 @@ void		msh_replace_var_in_str(char **s, t_cli *cli, int beg, int *end)
 	ft_strncpy(*s, tmp, beg - 1);
 	ft_strcat(*s, env_val);
 	ft_strcat(*s, tmp + beg - 1);
-	ft_strdel(&env);
-	ft_strdel(&env_val);
-	ft_strdel(&tmp);
 	if (envlen(*s + beg) + 1 < (int)ft_strlen(env_val))
 		*end = *end + ft_strlen(env_val) - ft_strlen(env) - 1;
 	else
 		*end = *end - ((ft_strlen(env) + 1) - ft_strlen(env_val));
+	ft_strdel(&env);
+	ft_strdel(&tmp);
+	ft_strdel(&env_val);
 }
 
 void		msh_strparse_in_dquote(char **s, t_cli *cli, int beg, int *end)
@@ -157,9 +157,9 @@ void		msh_replace_tilde_in_str(char **s, t_cli *cli, int beg)
 	}
 	ft_memmove(*s + beg, *s + beg + 1, ft_strlen(*s + beg));
 	*s = ft_strnew(ft_strlen(tmp) + len);
-	ft_memcpy(*s, tmp, ft_strlen(tmp));
-	ft_memmove(*s + beg + len, *s + beg, ft_strlen(*s + beg));
-	ft_memcpy(*s + beg, home, len);
+	ft_strncpy(*s, tmp, beg);
+	ft_strcat(*s, home);
+	ft_strcat(*s, tmp + beg);
 	ft_strdel(&home);
 	ft_strdel(&tmp);
 }
