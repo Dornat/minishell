@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 16:08:10 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/27 18:30:43 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/27 19:35:04 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,7 @@ int					ft_isnotprint(int c);
 int					ft_putcchar(int c);
 int					peekb(char c, char *s);
 int					lcins(char c, char *s);
+int					envlen(char *s);
 void				free_double_ptr(char ***s);
 
 /*

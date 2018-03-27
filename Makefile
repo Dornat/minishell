@@ -6,7 +6,7 @@
 #    By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/09 13:27:26 by dpolosuk          #+#    #+#              #
-#    Updated: 2018/03/27 18:33:08 by dpolosuk         ###   ########.fr        #
+#    Updated: 2018/03/27 19:39:53 by dpolosuk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,10 +20,12 @@ SRC = basic_tab_completion.c \
 		del_chr_from_cmdl.c \
 		ent_key_processing.c \
 		exec_prog.c \
+		find_executable.c \
 		insert_chr_in_cmdl.c \
 		key_process.c \
 		main.c \
 		misc.c \
+		msh_replace_tilde_var_strparse_in_dqt.c \
 		msh_split.c \
 		msh_split_arg_num.c \
 		msh_strparse.c \

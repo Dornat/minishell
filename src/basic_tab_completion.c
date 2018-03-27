@@ -6,14 +6,14 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 12:41:29 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/27 12:44:37 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/27 19:42:47 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <msh.h>
 
 static void		find_exec_int_pth_whif(t_cli *cli, DIR *dp, struct dirent *ds,
-									   char **d)
+										char **d)
 {
 	ft_bzero(CMD, ft_strlen(CMD));
 	ft_strcat(CMD, ds->d_name);

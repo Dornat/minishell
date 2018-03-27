@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 12:47:00 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/27 18:29:30 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/27 19:37:52 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,6 @@ static int		find_whitespace(char *s)
 		else
 			i++;
 	}
-	return (i);
-}
-
-int			envlen(char *s)
-{
-	int		i;
-
-	i = 0;
-	while (ft_isalpha(s[i]) || s[i] == '_')
-		i++;
 	return (i);
 }
 
@@ -81,139 +71,6 @@ char		*grep_envvalue(char *env_name, t_cli *cli)
 	ft_strdel(&tmp);
 	return (res);
 }
-
-void		msh_replace_var_in_str(char **s, t_cli *cli, int beg, int *end)
-{
-	char	*env_val;
-	char	*env;
-	char	*tmp;
-	int		len;
-
-	tmp = NULL;
-	len = ft_strlen(*s);
-	beg++;
-	env = ft_strsub(*s, beg, envlen(*s + beg));
-	if ((env_val = grep_envvalue(env, cli)) == NULL)
-	{
-		ft_memmove(*s + beg - 1, *s + beg + envlen(*s + beg), ft_strlen(*s + beg) + 1);
-		*end = *end - (ft_strlen(env) + 1);
-		ft_strdel(&env);
-		return ;
-	}
-	tmp = *s;
-	if (ft_strlen(*s + beg) - envlen(*s + beg) == 0)
-		ft_bzero(*s + beg - 1, envlen(*s + beg));
-	else
-		ft_memmove(*s + beg - 1, *s + beg + envlen(*s + beg), ft_strlen(*s + beg) + 1);
-	*s = ft_strnew(ft_strlen(tmp) + ft_strlen(env_val));
-	ft_strncpy(*s, tmp, beg - 1);
-	ft_strcat(*s, env_val);
-	ft_strcat(*s, tmp + beg - 1);
-	if (envlen(*s + beg) + 1 < (int)ft_strlen(env_val))
-		*end = *end + ft_strlen(env_val) - ft_strlen(env) - 1;
-	else
-		*end = *end - ((ft_strlen(env) + 1) - ft_strlen(env_val));
-	ft_strdel(&env);
-	ft_strdel(&tmp);
-	ft_strdel(&env_val);
-}
-
-void		msh_strparse_in_dquote(char **s, t_cli *cli, int beg, int *end)
-{
-	beg++;
-	while (beg < *end)
-	{
-		if ((*s)[beg] != '\\' && (*s)[beg] != '$')
-			beg++;
-		if ((*s)[beg] == '\\')
-		{
-			if ((*s)[beg + 1] == '$' || (*s)[beg + 1] == '\\' || (*s)[beg + 1] == '\"')
-			{
-				ft_memmove(*s + beg, *s + beg + 1, ft_strlen(*s));
-				beg++;
-				*end = *end - 1;
-			}
-			else
-				beg += 2;
-		}
-		else if ((*s)[beg] == '$')
-			msh_replace_var_in_str(s, cli, beg, end);
-	}
-}
-
-void		msh_replace_tilde_in_str(char **s, t_cli *cli, int beg)
-{
-	char	*home;
-	char	*tmp;
-	int		len;
-
-	home = grep_envvalue("HOME", cli);
-	len = ft_strlen(home);
-	tmp = *s;
-	if (len == 1)
-	{
-		(*s)[beg] = home[0];
-		return ;
-	}
-	ft_memmove(*s + beg, *s + beg + 1, ft_strlen(*s + beg));
-	*s = ft_strnew(ft_strlen(tmp) + len);
-	ft_strncpy(*s, tmp, beg);
-	ft_strcat(*s, home);
-	ft_strcat(*s, tmp + beg);
-	ft_strdel(&home);
-	ft_strdel(&tmp);
-}
-
-/* char		*msh_strparse(char *s, t_cli *cli) */
-/* { */
-/* 	int		i; */
-/* 	int		beg; */
-/* 	int		end; */
-
-/* 	i = 0; */
-/* 	beg = 0; */
-/* 	end = 0; */
-/* 	while (s[i]) */
-/* 	{ */
-/* 		if (s[i] == '\'') */
-/* 		{ */
-/* 			beg = i; */
-/* 			end = parse_quote(s, i) - 1; */
-/* 			ft_memmove(s + beg, s + beg + 1, ft_strlen(s)); */
-/* 			end--; */
-/* 			ft_memmove(s + end, s + end + 1, ft_strlen(s)); */
-/* 			i = end; */
-/* 		} */
-/* 		else if (s[i] == '\"') */
-/* 		{ */
-/* 			beg = i; */
-/* 			end = parse_dquote(s, i) - 1; */
-/* 			msh_strparse_in_dquote(&s, cli, beg, &end); */
-/* 			ft_memmove(s + beg, s + beg + 1, ft_strlen(s)); */
-/* 			end--; */
-/* 			ft_memmove(s + end, s + end + 1, ft_strlen(s)); */
-/* 			i = end; */
-/* 		} */
-/* 		else if (s[i] == '\\') */
-/* 		{ */
-/* 			ft_memmove(s + i, s + i + 1, ft_strlen(s + i)); */
-/* 			i++; */
-/* 		} */
-/* 		else if (s[i] == '$') */
-/* 		{ */
-/* 			beg = i; */
-/* 			msh_replace_var_in_str(&s, cli, beg, &end); */
-/* 		} */
-/* 		else if (s[i] == '~') */
-/* 		{ */
-/* 			beg = i; */
-/* 			msh_replace_tilde_in_str(&s, cli, beg); */
-/* 		} */
-/* 		else */
-/* 			i++; */
-/* 	} */
-/* 	return (s); */
-/* } */
 
 char		*msh_strsplit(char *s, t_cli *cli, int *beg, int *end)
 {

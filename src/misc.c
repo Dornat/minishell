@@ -6,7 +6,7 @@
 /*   By: dpolosuk <hmarvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 15:58:07 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/27 14:15:28 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/27 19:35:22 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,16 @@ char	**fill_bi_names(void)
 	bis[5] = ft_strdup("echo");
 	bis[6] = NULL;
 	return (bis);
+}
+
+int			envlen(char *s)
+{
+	int		i;
+
+	i = 0;
+	while (ft_isalpha(s[i]) || s[i] == '_')
+		i++;
+	return (i);
 }
 
 void	init_prompt(t_cli *cli)
