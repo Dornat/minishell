@@ -6,7 +6,7 @@
 /*   By: dpolosuk <hmarvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 15:58:07 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/26 16:26:30 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/27 11:17:04 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,39 @@ char	**fill_bi_names(void)
 	return (bis);
 }
 
+char	*init_prompt(t_cli *cli)
+{
+	char		*prt;
+	char		*buf;
+	char		*home;
+	char		cyn[10];
+	char		res[10];
+
+	buf = NULL;
+	prt = NULL;
+	if (PRT.p != NULL)
+		ft_strdel(&PRT.p);
+	prt = ft_strnew(PATH_LEN);
+	home = grep_envvalue("HOME", cli);
+	ft_strcpy(cyn, "\x1B[36m");
+	ft_strcpy(res, "\x1B[0m");
+	buf = getcwd(buf, PATH_LEN);
+	if (!ft_strncmp(home, buf, ft_strlen(home)))
+	{
+		ft_memmove(buf + 1, buf + ft_strlen(home), ft_strlen(home) - 1);
+		buf[0] = '~';
+	}
+	ft_strcat(prt, cyn);
+	ft_strcat(prt, "[");
+	ft_strcat(prt, buf);
+	ft_strcat(prt, "]");
+	ft_strcat(prt, res);
+	ft_strcat(prt, " $> ");
+	ft_strdel(&buf);
+	ft_strdel(&home);
+	return (prt);
+}
+
 void	init_term_data(t_cli *cli)
 {
 	extern char		g_prompt[PATH_LEN];
@@ -158,11 +191,13 @@ void	init_term_data(t_cli *cli)
 	tgetent(buf, termtype);
 	ft_strdel(&termtype);
 	enable_raw_mode();
-	cli->prt.p = ft_strdup("[msh] $> \0");
+	cli->env = copy_env();
+	cli->prt.p = NULL;
+	cli->prt.p = init_prompt(cli);
 	ft_bzero(g_prompt, PATH_LEN);
 	ft_memcpy(g_prompt, PRT.p, ft_strlen(PRT.p));
 	cli->prt.tp = NULL;
-	cli->prt.len = ft_strlen(cli->prt.p);
+	cli->prt.len = ft_strlen(cli->prt.p) - 9;
 	cli->cmd = ft_strnew(CMD_LEN);
 	cli->tcmd = ft_strnew(CMD_LEN);
 	cli->bs = 0;
@@ -171,7 +206,6 @@ void	init_term_data(t_cli *cli)
 	cli->acmd = NULL;
 	cli->brk = 0;
 	cli->dqt = 0;
-	cli->env = copy_env();
 	cli->epth = NULL;
 	cli->pth = ft_strnew(PATH_LEN);
 	cli->bi_flag = 0;

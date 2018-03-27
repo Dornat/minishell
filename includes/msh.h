@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 16:08:10 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/26 19:32:13 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/27 11:06:50 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,8 @@ void				bi_setenv(t_cli *cli);
 t_list				*bi_find_env(t_list *env, char *arg);
 void				bi_unsetenv(t_cli *cli);
 void				bi_cd(t_cli *cli);
+char				*grep_envvalue(char *env_name, t_cli *cli);
+char				*init_prompt(t_cli *cli);
 
 /*
 ** Misc functions

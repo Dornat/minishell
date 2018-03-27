@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 13:38:21 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/22 16:17:18 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/27 11:23:42 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int		ent_key_processing(t_cli *cli)
 			ft_strdel(&PRT.p);
 			PRT.p = PRT.tp;
 			PRT.tp = NULL;
-			PRT.len = ft_strlen(PRT.p);
 		}
 		CRS.col = PRT.len;
 		CRS.row = 0;

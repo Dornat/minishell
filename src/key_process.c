@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:15:38 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/26 19:33:40 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/27 11:32:48 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static void		find_exec_in_pth(t_cli *cli)
 			{
 				ft_bzero(CMD, ft_strlen(CMD));
 				ft_strcat(CMD, ds->d_name);
-				CRS.col = ft_strlen(PRT.p) + ft_strlen(CMD);
+				CRS.col = PRT.len + ft_strlen(CMD);
 				refresh_cli(cli);
 				closedir(dp);
 				free_double_ptr(&d);
@@ -122,7 +122,7 @@ void			basic_tab_compl(t_cli *cli)
 		{
 			ft_bzero(CMD, ft_strlen(CMD));
 			ft_strcat(CMD, BIS[i]);
-			CRS.col = ft_strlen(PRT.p) + ft_strlen(CMD);
+			CRS.col = PRT.len + ft_strlen(CMD);
 			refresh_cli(cli);
 			return ;
 		}
@@ -150,9 +150,5 @@ int				key_process(char *c, t_cli *cli)
 	}
 	else if (!ft_strcmp(c, TAB_KEY))
 		basic_tab_compl(cli);
-	else if (!ft_strcmp(c, CTRL_E))
-	{
-		printf("CMD: %s\n", CMD);
-	}
 	return (0);
 }

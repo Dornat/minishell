@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:13:45 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/26 19:16:41 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/27 11:26:21 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,11 @@ void	loops(int kp, char *c, t_cli *cli)
 					free_double_ptr(&ACMD);
 					I = I + 1;
 				}
+				PRT.p = init_prompt(cli);
+				ft_bzero(g_prompt, ft_strlen(g_prompt));
+				ft_strcpy(g_prompt, PRT.p);
+				PRT.len = ft_strlen(PRT.p) - 9;
+				CRS.col = PRT.len;
 				ft_bzero(CMD, ft_strlen(CMD));
 				ft_bzero(TMP, ft_strlen(TMP));
 				free_double_ptr(&CMDS);

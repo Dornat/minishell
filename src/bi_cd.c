@@ -6,13 +6,13 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 17:01:50 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/26 12:59:36 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/27 11:19:08 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <msh.h>
 
-static t_list		*find_home(t_cli *cli)
+t_list				*find_home(t_cli *cli)
 {
 	t_list		*ptr;
 
