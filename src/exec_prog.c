@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 16:10:44 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/28 16:41:49 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/28 16:54:25 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void			exec_prog(t_cli *cli)
 {
 	extern pid_t			g_pid;
 	extern struct termios	g_raw;
-	extern char				**environ;
 	char					**env;
 
 	env = environ_from_t_list(ENV);
