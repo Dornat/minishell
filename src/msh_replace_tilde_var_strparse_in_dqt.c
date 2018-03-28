@@ -6,18 +6,19 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 19:37:26 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/28 12:29:01 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/28 15:25:40 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <msh.h>
 
-#define M ft_memmove
+#define M ft_memmove4
 #define NORM (*s)[beg + 1]
+#define NORM1 *s + beg + envlen(*s + beg)
 
 static void		msh_replvins_if(char **s, char **env, int beg, int *end)
 {
-	M(*s + beg - 1, *s + beg + envlen(*s + beg), ft_strlen(*s + beg) + 1);
+	M(*s + beg - 1, NORM1, ft_strlen(*s + beg) + 1, ft_strlen(NORM1));
 	*end = *end - (ft_strlen(*env) + 1);
 	ft_strdel(env);
 }
@@ -37,7 +38,7 @@ void			msh_replace_var_in_str(char **s, t_cli *cli, int beg, int *end)
 	if (ft_strlen(*s + beg) - envlen(*s + beg) == 0)
 		ft_bzero(*s + beg - 1, envlen(*s + beg));
 	else
-		M(*s + beg - 1, *s + beg + envlen(*s + beg), ft_strlen(*s + beg) + 1);
+		M(*s + beg - 1, NORM1, ft_strlen(*s + beg) + 1, ft_strlen(NORM1));
 	*s = ft_strnew(ft_strlen(tmp) + ft_strlen(env_val));
 	ft_strncpy(*s, tmp, beg - 1);
 	ft_strcat(*s, env_val);
