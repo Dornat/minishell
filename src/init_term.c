@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 11:55:03 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/28 12:02:14 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/28 15:58:28 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void			init_term_data(t_cli *cli)
 	ft_strdel(&termtype);
 	enable_raw_mode();
 	cli->env = copy_env();
+	shlvl_increase(cli);
 	PRT.p = ft_strnew(PATH_LEN);
 	init_prompt(cli);
 	ft_bzero(g_prompt, PATH_LEN);

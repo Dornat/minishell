@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 15:44:47 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/28 15:16:47 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/28 15:32:40 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,7 @@ char			*msh_strparse(char *s, t_cli *cli)
 		else if (s[n.i] == '\\')
 			msh_strparse_elif2(&s, &n);
 		else if (s[n.i] == '$')
-		{
-			if (s[n.i + 1] == '\0' || s[n.i + 1] == ' ' )
-				n.i++;
-			else
-			{
-				n.beg = n.i;
-				msh_replace_var_in_str(&s, cli, n.beg, &n.end);
-			}
-		}
+			msh_strparse_elif4(&s, cli, &n);
 		else if (s[n.i] == '~')
 			msh_strparse_elif3(&s, cli, &n);
 		else

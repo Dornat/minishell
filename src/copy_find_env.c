@@ -6,13 +6,13 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/28 12:09:32 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/28 12:09:58 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/28 15:56:46 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <msh.h>
 
-t_list		*copy_env(void)
+t_list			*copy_env(void)
 {
 	extern char		**environ;
 	t_list			*res;
@@ -32,7 +32,7 @@ t_list		*copy_env(void)
 	return (res);
 }
 
-t_list		*bi_find_env(t_list *env, char *arg)
+t_list			*bi_find_env(t_list *env, char *arg)
 {
 	t_list		*ptr;
 
@@ -46,4 +46,37 @@ t_list		*bi_find_env(t_list *env, char *arg)
 		ptr = ptr->next;
 	}
 	return (NULL);
+}
+
+static void		set_shlvl(t_list *env)
+{
+	t_list		*new;
+
+	new = ft_lstnew("SHLVL=1", 7);
+	ft_lstadd_atend(&env, new);
+}
+
+void			shlvl_increase(t_cli *cli)
+{
+	char		*ev;
+	int			evn;
+	char		*evni;
+	t_list		*p;
+
+	if ((ev = grep_envvalue("SHLVL", cli)) == NULL)
+		set_shlvl(ENV);
+	else
+	{
+		evn = ft_atoi(ev);
+		evn = evn + 1;
+		evni = ft_itoa(evn);
+		p = bi_find_env(ENV, "SHLVL=");
+		ft_memdel(&p->content);
+		p->content_size = 42;
+		p->content = (void*)ft_strnew(p->content_size);
+		ft_strcat(p->content, "SHLVL=");
+		ft_strcat(p->content, evni);
+		ft_strdel(&evni);
+		ft_strdel(&ev);
+	}
 }

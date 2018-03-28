@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 16:08:10 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/28 11:58:34 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/28 16:26:32 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ char				**fill_bi_names(void);
 char				*find_term_type();
 void				disable_raw_mode(void);
 t_list				*copy_env(void);
+void				shlvl_increase(t_cli *cli);
 void				loops_elif_while(t_cli *cli, int no_such_file);
 
 /*
@@ -181,8 +182,10 @@ void				basic_tab_compl(t_cli *cli);
 
 char				**split_semicol(char *s);
 char				**msh_split(char *s, t_cli *cli);
-void				msh_strparse_in_dquote(char **s, t_cli *cli, int beg, int *end);
-void				msh_replace_var_in_str(char **s, t_cli *cli, int beg, int *end);
+void				msh_strparse_in_dquote(char **s, t_cli *cli, int beg,
+					int *end);
+void				msh_replace_var_in_str(char **s, t_cli *cli, int beg,
+					int *end);
 void				msh_replace_tilde_in_str(char **s, t_cli *cli, int beg);
 char				*msh_strparse(char *s, t_cli *cli);
 int					msh_split_arg_num(char *s);
@@ -236,5 +239,7 @@ typedef struct		s_norm
 	int		beg;
 	int		end;
 }					t_norm;
+
+void				msh_strparse_elif4(char **s, t_cli *cli, t_norm *n);
 
 #endif
