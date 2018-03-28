@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:13:45 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/27 12:49:40 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/28 11:48:56 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,51 +26,12 @@ struct termios	g_raw;
 char			g_prompt[PATH_LEN];
 int				g_ctrl;
 
-void	free_double_ptr(char ***s)
-{
-	int		i;
-	
-	i = 0;
-	if (!s || !*s)
-		return ;
-	while ((*s)[i])
-	{
-		ft_strdel(&(*s)[i]);
-		i++;
-	}
-	free(*s);
-	*s = NULL;
-}
-
 void	loops_if_g_ctrl(t_cli *cli)
 {
 	ft_bzero(TMP, ft_strlen(TMP));
 	ft_bzero(CMD, ft_strlen(CMD));
 	CRS.col = PRT.len;
 	g_ctrl = 0;
-}
-
-void	loops_elif_while(t_cli *cli, int no_such_file)
-{
-	if ((no_such_file = parse_cmd(cli)))
-	{
-		if (no_such_file == -1)
-			ft_printf("msh: %s: Permission denied\n", ACMD[0]);
-		else if (no_such_file == -2)
-			ft_printf("msh: %s: No such file or directory\n", ACMD[0]);
-		else if (ACMD[0])
-			ft_printf("msh: %s: command not found\n", ACMD[0]);
-	}
-	else if (TMP[0])
-	{
-		if (BIF)
-		{
-			exec_builtin(cli);
-			BIF = 0;
-		}
-		else
-			exec_prog(cli);
-	}
 }
 
 void	loops_elif(t_cli *cli, int no_such_file)
@@ -97,7 +58,7 @@ void	loops_elif(t_cli *cli, int no_such_file)
 void	loops(int kp, char *c, t_cli *cli)
 {
 	int		no_such_file;
-	
+
 	while (1)
 	{
 		ft_putstr(PRT.p);

@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/24 13:21:59 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/24 13:22:32 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/28 11:32:09 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static void		anum_incr(char *s, int i, int *anum)
 				*anum = *anum + 1;
 		}
 	}
-	
 }
 
 static void		arg_num_elif1(char *s, int *i, int *anum)
@@ -81,7 +80,7 @@ int				msh_split_arg_num(char *s)
 		else if (s[i] == '\"')
 			arg_num_elif2(s, &i, &anum);
 		else if (s[i] != '\'' && s[i] != '\\' && s[i] != '\"' && s[i] != ' '
-				 && s[i] != '\t')
+											&& s[i] != '\t')
 			arg_num_elif3(s, &i, &anum);
 		else
 			while ((s[i] == ' ' || s[i] == '\t') && s[i])

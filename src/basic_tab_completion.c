@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 12:41:29 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/27 19:42:47 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/28 10:52:42 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void		find_exec_int_pth_whif(t_cli *cli, DIR *dp, struct dirent *ds,
 {
 	ft_bzero(CMD, ft_strlen(CMD));
 	ft_strcat(CMD, ds->d_name);
+	ft_strcat(CMD, " ");
 	CRS.col = PRT.len + ft_strlen(CMD);
 	refresh_cli(cli);
 	closedir(dp);
@@ -64,6 +65,7 @@ void			basic_tab_compl(t_cli *cli)
 		{
 			ft_bzero(CMD, ft_strlen(CMD));
 			ft_strcat(CMD, BIS[i]);
+			ft_strcat(CMD, " ");
 			CRS.col = PRT.len + ft_strlen(CMD);
 			refresh_cli(cli);
 			return ;

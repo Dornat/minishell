@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/23 12:47:00 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/27 19:37:52 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/27 19:58:22 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char		*extract_value_from_env(char *env)
 	return (res);
 }
 
-char		*grep_envvalue(char *env_name, t_cli *cli)
+char			*grep_envvalue(char *env_name, t_cli *cli)
 {
 	char		*res;
 	char		*tmp;
@@ -72,11 +72,11 @@ char		*grep_envvalue(char *env_name, t_cli *cli)
 	return (res);
 }
 
-char		*msh_strsplit(char *s, t_cli *cli, int *beg, int *end)
+char			*msh_strsplit(char *s, t_cli *cli, int *beg, int *end)
 {
 	char	*res;
 
-	res =  NULL;
+	res = NULL;
 	while (s[*beg] == ' ' || s[*beg] == '\t')
 		*beg = *beg + 1;
 	*end = find_whitespace(s + *beg) + *beg;
@@ -86,7 +86,7 @@ char		*msh_strsplit(char *s, t_cli *cli, int *beg, int *end)
 	return (res);
 }
 
-char		**msh_split(char *s, t_cli *cli)
+char			**msh_split(char *s, t_cli *cli)
 {
 	char	**res;
 	int		i;

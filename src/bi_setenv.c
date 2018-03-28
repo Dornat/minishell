@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 15:16:03 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/27 12:56:50 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/28 10:55:47 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,22 +63,6 @@ t_list		*bi_find_env_with_extraction(t_list *env, char *arg)
 		ptr = ptr->next;
 	}
 	ft_strdel(&cmp);
-	return (NULL);
-}
-
-t_list		*bi_find_env(t_list *env, char *arg)
-{
-	t_list		*ptr;
-
-	ptr = env;
-	if (!ptr || !arg)
-		return (NULL);
-	while (ptr)
-	{
-		if (!ft_strncmp(arg, (char*)ptr->content, ft_strlen(arg)))
-			return (ptr);
-		ptr = ptr->next;
-	}
 	return (NULL);
 }
 

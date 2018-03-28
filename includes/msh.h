@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 16:08:10 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/27 19:35:04 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/28 11:58:34 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,14 +145,16 @@ typedef struct		s_cli
 # define BIS cli->bis
 
 /*
-** Main functions
+** init functions
 */
 
 void				init_term_data(t_cli *cli);
-void				enable_raw_mode(void);
+void				init_prompt(t_cli *cli);
+char				**fill_bi_names(void);
+char				*find_term_type();
 void				disable_raw_mode(void);
 t_list				*copy_env(void);
-void				init_cpos(t_cli *cli);
+void				loops_elif_while(t_cli *cli, int no_such_file);
 
 /*
 ** Key process functions
@@ -160,9 +162,12 @@ void				init_cpos(t_cli *cli);
 
 int					key_process(char *c, t_cli *cli);
 void				insert_chr_in_cmdl(char *c, t_cli *cli);
+void				check_for_realloc(t_cli *cli);
 void				del_chr_from_cmdl(t_cli *cli);
 
 int					ent_key_processing(t_cli *cli);
+void				crs_move_left(t_cli *cli);
+void				crs_move_right(t_cli *cli);
 int					parse_qt_bs(char *s, int i, t_cli *cli);
 int					parse_qt_are_there_null(char *s, int i, t_cli *cli);
 
@@ -182,6 +187,7 @@ void				msh_replace_tilde_in_str(char **s, t_cli *cli, int beg);
 char				*msh_strparse(char *s, t_cli *cli);
 int					msh_split_arg_num(char *s);
 int					parse_cmd(t_cli *cli);
+int					check_for_builtin(t_cli *cli);
 int					parse_quote(char *s, int i);
 int					parse_dquote(char *s, int i);
 
@@ -191,6 +197,8 @@ int					parse_dquote(char *s, int i);
 
 void				exec_prog(t_cli *cli);
 int					path_exist(t_cli *cli);
+int					find_executable(t_cli *cli);
+int					find_executable_with_path(char *pth);
 
 /*
 ** Execution of builtins
@@ -198,12 +206,14 @@ int					path_exist(t_cli *cli);
 
 void				exec_builtin(t_cli *cli);
 void				bi_exit(t_cli *cli);
+void				bi_env(t_cli *cli);
 void				bi_setenv(t_cli *cli);
 t_list				*bi_find_env(t_list *env, char *arg);
 void				bi_unsetenv(t_cli *cli);
 void				bi_cd(t_cli *cli);
+void				bi_echo(t_cli *cli);
+void				swap_pwd_oldpwd(t_list *env);
 char				*grep_envvalue(char *env_name, t_cli *cli);
-void				init_prompt(t_cli *cli);
 
 /*
 ** Misc functions

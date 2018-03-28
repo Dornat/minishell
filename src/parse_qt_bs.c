@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/17 11:29:51 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/23 12:26:51 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/28 11:23:13 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int		parse_dquote(char *s, int i)
 
 /*
 ** parse_qt_bs checks whether there are matching quoting chars or there are not
+** and moves iterator and if there are no matching char it returns 1
 */
 
 int		parse_qt_bs(char *s, int i, t_cli *cli)

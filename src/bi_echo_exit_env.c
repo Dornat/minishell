@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 15:29:58 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/27 15:34:50 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/28 12:14:27 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	bi_echo(t_cli *cli)
 	while (ACMD[i])
 	{
 		ft_putstr(ACMD[i]);
+		if (ACMD[i + 1] != NULL)
+			ft_putchar(' ');
 		i++;
 	}
 	ft_putchar('\n');

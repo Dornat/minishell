@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/11 13:38:21 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/27 11:23:42 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/28 11:21:56 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,23 @@ static void		rfrsh_for_ent(t_cli *cli)
 	tputs(tgetstr(LEAVE_INS_MODE, NULL), 0, ft_putcchar);
 }
 
+static void		ent_key_processing_if2(t_cli *cli)
+{
+	if (PRT.tp == NULL)
+	{
+		PRT.tp = PRT.p;
+		PRT.p = ft_strdup("> \0");
+	}
+	PRT.len = ft_strlen(PRT.p);
+	CRS.col = PRT.len;
+	CRS.row = 0;
+}
+
 /*
 ** ent_key_processing processes ENTER key and handles quoting
 */
 
-int		ent_key_processing(t_cli *cli)
+int				ent_key_processing(t_cli *cli)
 {
 	rfrsh_for_ent(cli);
 	if (TMP[0] == '\0' && CMD[0])
@@ -35,14 +47,7 @@ int		ent_key_processing(t_cli *cli)
 		ft_strcat(TMP, CMD);
 	if (parse_qt_bs(TMP, BS, cli))
 	{
-		if (PRT.tp == NULL)
-		{
-			PRT.tp = PRT.p;
-			PRT.p = ft_strdup("> \0");
-		}
-		PRT.len = ft_strlen(PRT.p);
-		CRS.col = PRT.len;
-		CRS.row = 0;
+		ent_key_processing_if2(cli);
 		return (-1);
 	}
 	else

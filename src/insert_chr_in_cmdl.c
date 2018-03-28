@@ -6,7 +6,7 @@
 /*   By: dpolosuk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/06 18:19:38 by dpolosuk          #+#    #+#             */
-/*   Updated: 2018/03/21 14:59:54 by dpolosuk         ###   ########.fr       */
+/*   Updated: 2018/03/28 11:31:05 by dpolosuk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,25 +57,7 @@ static void		global_rows_update(t_cli *cli)
 	}
 }
 
-static void		check_for_realloc(t_cli *cli)
-{
-	char	*tmp1;
-	char	*tmp2;
-
-	tmp1 = CMD;
-	tmp2 = TMP;
-	if ((ft_strlen(CMD) % 256 > 242) || (ft_strlen(TMP) % 256 > 242))
-	{
-		CMD = ft_strnew(ft_strlen(tmp1) * 2);
-		ft_memcpy(CMD, tmp1, ft_strlen(tmp1));
-		TMP = ft_strnew(ft_strlen(tmp2) * 2);
-		ft_memcpy(TMP, tmp2, ft_strlen(tmp2));
-		ft_strdel(&tmp1);
-		ft_strdel(&tmp2);
-	}
-}
-
-void			check_for_ctrl_c(t_cli *cli)
+static void		check_for_ctrl_c(t_cli *cli)
 {
 	extern int		g_ctrl;
 
